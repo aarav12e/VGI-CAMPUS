@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "VGI CAMPUS",
+    "slug": "vgi-campus",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FFFFFF"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vgi.campus"
+    },
+    "android": {
+      "package": "com.vgi.campus",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
