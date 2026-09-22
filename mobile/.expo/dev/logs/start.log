@@ -76,3 +76,420 @@
 {"_e":"metro:client_log","_t":1790098417027,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
 {"_e":"metro:client_log","_t":1790098418181,"level":"warn","data":["Cannot record touch end without a touch start.\n","Touch End: {\"identifier\":0,\"pageX\":354,\"pageY\":387,\"timestamp\":2525.5}\n","Touch Bank: []"]}
 {"_e":"metro:bundling:started","_t":1790098421249,"id":"6","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:started","_t":1790098757329,"id":"b","platform":"web","environment":null,"entry":"src/api.ts"}
+{"_e":"metro:bundling:started","_t":1790098757332,"id":"d","platform":"web","environment":null,"entry":"src/App.tsx"}
+{"_e":"metro:bundling:started","_t":1790098864923,"id":"f","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1790098864923,"id":"f","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790098864939,"id":"f","total":1,"ms":16.221458}
+{"_e":"metro:bundling:started","_t":1790098865011,"id":"h","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:client_log","_t":1790098865062,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790098865062,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"root:init","_t":1790098869757,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790098869758,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790098869758,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1790098869834,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790098869947,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790098870010,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790098870136,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790098872401,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1790098872401,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790098872405,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790098872495,"id":"1","total":1,"ms":94.297167}
+{"_e":"metro:client_log","_t":1790098872573,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1790098872573,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790098872573,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1790098891015,"id":"a","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:client_log","_t":1790098903318,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790099456166,"id":"e","platform":"web","environment":null,"entry":"src/App.tsx"}
+{"_e":"metro:bundling:started","_t":1790099466635,"id":"f","platform":"web","environment":null,"entry":"src/App.tsx"}
+{"_e":"metro:bundling:started","_t":1790099548052,"id":"m","platform":"web","environment":null,"entry":"src/App.tsx"}
+{"_e":"metro:bundling:started","_t":1790099605450,"id":"n","platform":"web","environment":null,"entry":"src/App.tsx"}
+{"_e":"root:init","_t":1790100611922,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790100611922,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790100611923,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1790100612015,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790100612115,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790100612176,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790100612327,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790100613794,"id":"2","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790100613794,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790100613796,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790100613966,"id":"2","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1790100614068,"id":"2","progress":0.9891008988025919,"total":183,"current":182}
+{"_e":"metro:bundling:progress","_t":1790100614184,"id":"2","progress":0.999,"total":183,"current":183}
+{"_e":"metro:bundling:done","_t":1790100614228,"id":"2","total":183,"ms":433.965292}
+{"_e":"metro:bundling:started","_t":1790100614313,"id":"3","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790100614365,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790100614365,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1790100616419,"id":"7","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790100616419,"id":"7","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790100616437,"id":"7","total":1,"ms":17.3495}
+{"_e":"metro:client_log","_t":1790100616500,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1790100616500,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790100616500,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790100709122,"level":"warn","data":["Cannot record touch end without a touch start.\n","Touch End: {\"identifier\":0,\"pageX\":617,\"pageY\":271,\"timestamp\":92742.69999999553}\n","Touch Bank: []"]}
+{"_e":"metro:bundling:started","_t":1790100710702,"id":"c","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790100716532,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790100937843,"id":"h","platform":"web","environment":null,"entry":"src/constants/tilesData.js"}
+{"_e":"metro:bundling:started","_t":1790100937845,"id":"i","platform":"web","environment":null,"entry":"src/screens/OnboardingScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937845,"id":"j","platform":"web","environment":null,"entry":"src/constants/onboardingData.js"}
+{"_e":"metro:bundling:started","_t":1790100937845,"id":"k","platform":"web","environment":null,"entry":"src/screens/LoginScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937845,"id":"l","platform":"web","environment":null,"entry":"src/screens/DashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937846,"id":"m","platform":"web","environment":null,"entry":"src/components/TilesGrid.js"}
+{"_e":"metro:bundling:started","_t":1790100937857,"id":"n","platform":"web","environment":null,"entry":"src/screens/HappeningsScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937859,"id":"o","platform":"web","environment":null,"entry":"src/screens/RmsScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937859,"id":"p","platform":"web","environment":null,"entry":"src/screens/ViewMarksScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937860,"id":"q","platform":"web","environment":null,"entry":"src/screens/TeacherPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937861,"id":"r","platform":"web","environment":null,"entry":"src/screens/ParentPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790100937861,"id":"s","platform":"web","environment":null,"entry":"src/components/TopHeader.js"}
+{"_e":"metro:bundling:started","_t":1790100937873,"id":"t","platform":"web","environment":null,"entry":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790100937874,"id":"u","platform":"web","environment":null,"entry":"src/constants/drawerData.js"}
+{"_e":"metro:bundling:started","_t":1790100937875,"id":"v","platform":"web","environment":null,"entry":"src/components/BottomTabBar.js"}
+{"_e":"metro:bundling:started","_t":1790100937875,"id":"w","platform":"web","environment":null,"entry":"src/components/FeatureModals.js"}
+{"_e":"metro:bundling:started","_t":1790100937875,"id":"x","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:bundling:started","_t":1790102714439,"id":"z","platform":"web","environment":null,"entry":"src/constants/tilesData.js"}
+{"_e":"metro:bundling:started","_t":1790102726455,"id":"10","platform":"web","environment":null,"entry":"src/constants/drawerData.js"}
+{"_e":"metro:bundling:started","_t":1790102752791,"id":"11","platform":"web","environment":null,"entry":"src/components/TilesGrid.js"}
+{"_e":"metro:bundling:started","_t":1790102767680,"id":"12","platform":"web","environment":null,"entry":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790102820128,"id":"14","platform":"web","environment":null,"entry":"src/screens/AdminDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790102820128,"id":"15","platform":"web","environment":null,"entry":"src/screens/HodDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790102820128,"id":"16","platform":"web","environment":null,"entry":"src/screens/ParentDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790102820128,"id":"17","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:bundling:started","_t":1790103123970,"id":"19","platform":"web","environment":null,"entry":".env"}
+{"_e":"metro:bundling:started","_t":1790103132168,"id":"1b","platform":"web","environment":null,"entry":".env"}
+{"_e":"metro:bundling:started","_t":1790103470837,"id":"1g","platform":"web","environment":null,"entry":"src/screens/LoginScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103480798,"id":"1i","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790103480798,"id":"1i","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790103480823,"id":"1i","total":1,"ms":25.319042}
+{"_e":"metro:bundling:started","_t":1790103480892,"id":"1k","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790103480943,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790103480943,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1790103484127,"id":"1o","platform":"web","environment":null,"entry":"src/screens/OnboardingScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103496506,"id":"1u","platform":"web","environment":null,"entry":"src/components/TopHeader.js"}
+{"_e":"metro:bundling:started","_t":1790103501265,"id":"1v","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790103501265,"id":"1v","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790103501287,"id":"1v","total":1,"ms":21.460459}
+{"_e":"metro:bundling:started","_t":1790103501361,"id":"1x","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790103501412,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790103501412,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1790103504232,"id":"22","platform":"web","environment":null,"entry":"src/components/TopHeader.js"}
+{"_e":"metro:bundling:started","_t":1790103562328,"id":"25","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:started","_t":1790103562401,"id":"26","platform":"web","environment":null,"entry":"src/components/TopHeader.js"}
+{"_e":"metro:bundling:started","_t":1790103628078,"id":"27","platform":"web","environment":null,"entry":"src/screens/OnboardingScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103695576,"id":"2d","platform":"web","environment":null,"entry":"src/screens/LoginScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103705345,"id":"2e","platform":"web","environment":null,"entry":"src/screens/LoginScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103718387,"id":"2f","platform":"web","environment":null,"entry":"src/screens/LoginScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103737848,"id":"2g","platform":"web","environment":null,"entry":"src/components/TilesGrid.js"}
+{"_e":"metro:bundling:started","_t":1790103749742,"id":"2h","platform":"web","environment":null,"entry":"src/components/TilesGrid.js"}
+{"_e":"metro:bundling:started","_t":1790103761098,"id":"2i","platform":"web","environment":null,"entry":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790103771180,"id":"2j","platform":"web","environment":null,"entry":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790103782504,"id":"2k","platform":"web","environment":null,"entry":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790103799074,"id":"2l","platform":"web","environment":null,"entry":"src/screens/TeacherPortalScreen.js"}
+{"_e":"metro:client_log","_t":1790103800972,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790103809099,"id":"2m","platform":"web","environment":null,"entry":"src/screens/TeacherPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103822017,"id":"2n","platform":"web","environment":null,"entry":"src/screens/ParentPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103830774,"id":"2o","platform":"web","environment":null,"entry":"src/screens/ParentPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103838072,"id":"2p","platform":"web","environment":null,"entry":"src/screens/AdminDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103846665,"id":"2q","platform":"web","environment":null,"entry":"src/screens/AdminDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103855278,"id":"2r","platform":"web","environment":null,"entry":"src/screens/HodDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864021,"id":"2t","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:started","_t":1790103864112,"id":"2u","platform":"web","environment":null,"entry":"src/components/TopHeader.js"}
+{"_e":"metro:bundling:started","_t":1790103864114,"id":"2v","platform":"web","environment":null,"entry":"src/screens/OnboardingScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864115,"id":"2w","platform":"web","environment":null,"entry":"src/screens/LoginScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864117,"id":"2x","platform":"web","environment":null,"entry":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790103864117,"id":"2y","platform":"web","environment":null,"entry":"src/components/TilesGrid.js"}
+{"_e":"metro:bundling:started","_t":1790103864118,"id":"2z","platform":"web","environment":null,"entry":"src/screens/TeacherPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864120,"id":"30","platform":"web","environment":null,"entry":"src/screens/ParentPortalScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864120,"id":"31","platform":"web","environment":null,"entry":"src/screens/AdminDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864121,"id":"32","platform":"web","environment":null,"entry":"src/screens/HodDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103864123,"id":"33","platform":"web","environment":null,"entry":"src/screens/HodDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103869967,"id":"34","platform":"web","environment":null,"entry":"src/screens/ParentDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103875467,"id":"36","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790103875467,"id":"36","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790103875489,"id":"36","total":1,"ms":21.954041}
+{"_e":"metro:bundling:started","_t":1790103875559,"id":"37","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790103875604,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790103875604,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1790103875763,"id":"3c","platform":"web","environment":null,"entry":"src/screens/ParentDashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790103899248,"id":"3h","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:client_log","_t":1790103899286,"level":"warn","data":["An error occurred in the <App> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1790103899296,"level":"error","data":["[ReferenceError: handleDemoLogin is not defined]","\n\n\u001b[1mCode: App.js\u001b[22m\n\u001b[0m \u001b[90m 199 |\u001b[39m             \u001b[33m<\u001b[39m\u001b[33mLoginScreen\u001b[39m\n \u001b[90m 200 |\u001b[39m                 onLogin\u001b[33m=\u001b[39m{handleManualLogin}\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 201 |\u001b[39m                 onDemoLogin\u001b[33m=\u001b[39m{handleDemoLogin}\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 202 |\u001b[39m                 loginLoading\u001b[33m=\u001b[39m{loginLoading}\n \u001b[90m 203 |\u001b[39m                 loginError\u001b[33m=\u001b[39m{loginError}\n \u001b[90m 204 |\u001b[39m             \u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  App (\u001b]8;;App.js:201:30\u0007App.js:201:30\u001b]8;;\u0007)\u001b[39m","\n\n\u001b[1mCode: withDevTools.web.tsx\u001b[22m\n\u001b[0m \u001b[90m  9 |\u001b[39m     \u001b[36mreturn\u001b[39m (\n \u001b[90m 10 |\u001b[39m       \u001b[33m<\u001b[39m\u001b[33m>\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m         \u001b[33m<\u001b[39m\u001b[33mAppRootComponent\u001b[39m {\u001b[33m...\u001b[39mprops} \u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m    |\u001b[39m         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m         \u001b[33m<\u001b[39m\u001b[33mDevLoadingView\u001b[39m \u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 13 |\u001b[39m       \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 14 |\u001b[39m     )\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  WithDevTools (\u001b]8;;node_modules/expo/src/launch/withDevTools.web.tsx:11:9\u0007node_modules/expo/src/launch/withDevTools.web.tsx:11:9\u001b]8;;\u0007)\u001b[39m\u001b[22m"]}
+{"_e":"metro:bundling:started","_t":1790103911332,"id":"3k","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:bundling:started","_t":1790103924424,"id":"3m","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"root:init","_t":1790104062655,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790104062655,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790104062657,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790104062754,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790104062881,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790104062944,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790104063109,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790104066040,"id":"1","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790104066040,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790104066043,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790104066138,"id":"1","total":1,"ms":97.689084}
+{"_e":"metro:client_log","_t":1790104066213,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1790104066219,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790104066220,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790104071394,"level":"warn","data":["Cannot record touch end without a touch start.\n","Touch End: {\"identifier\":0,\"pageX\":493,\"pageY\":303,\"timestamp\":5405.10000000149}\n","Touch Bank: []"]}
+{"_e":"metro:bundling:started","_t":1790104073396,"id":"6","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790104106456,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790104364319,"id":"d","platform":"web","environment":null,"entry":"src/constants/drawerData.js"}
+{"_e":"metro:bundling:started","_t":1790104374393,"id":"e","platform":"web","environment":null,"entry":"src/constants/tilesData.js"}
+{"_e":"metro:bundling:started","_t":1790104383870,"id":"f","platform":"web","environment":null,"entry":"src/screens/DashboardScreen.js"}
+{"_e":"metro:bundling:started","_t":1790104407789,"id":"g","platform":"web","environment":null,"entry":"src/components/FeatureModals.js"}
+{"_e":"metro:bundling:started","_t":1790104529192,"id":"h","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790104529193,"id":"h","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790104529222,"id":"h","total":1,"ms":29.7085}
+{"_e":"metro:bundling:started","_t":1790104529291,"id":"j","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790104529342,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790104529342,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790104552158,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790104727225,"id":"p","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:bundling:started","_t":1790105097661,"id":"u","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790105097661,"id":"u","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105097662,"id":"u","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105097762,"id":"u","progress":0.09,"total":9,"current":3}
+{"_e":"metro:bundling:progress","_t":1790105097863,"id":"u","progress":0.09,"total":36,"current":10}
+{"_e":"metro:bundling:progress","_t":1790105097964,"id":"u","progress":0.16435354273192113,"total":37,"current":15}
+{"_e":"metro:bundling:progress","_t":1790105098070,"id":"u","progress":0.16435354273192113,"total":89,"current":29}
+{"_e":"metro:bundling:progress","_t":1790105098170,"id":"u","progress":0.16435354273192113,"total":267,"current":93}
+{"_e":"metro:bundling:progress","_t":1790105098270,"id":"u","progress":0.17814977230561643,"total":308,"current":130}
+{"_e":"metro:bundling:progress","_t":1790105098370,"id":"u","progress":0.2725653567212008,"total":385,"current":201}
+{"_e":"metro:bundling:progress","_t":1790105098471,"id":"u","progress":0.519438357276195,"total":444,"current":320}
+{"_e":"metro:bundling:progress","_t":1790105098571,"id":"u","progress":0.519438357276195,"total":565,"current":403}
+{"_e":"metro:bundling:progress","_t":1790105098671,"id":"u","progress":0.583279116060033,"total":601,"current":459}
+{"_e":"metro:bundling:progress","_t":1790105098771,"id":"u","progress":0.7099167863730249,"total":686,"current":578}
+{"_e":"metro:bundling:progress","_t":1790105098871,"id":"u","progress":0.8231171956295525,"total":744,"current":675}
+{"_e":"metro:bundling:progress","_t":1790105098971,"id":"u","progress":0.8948137326515705,"total":777,"current":735}
+{"_e":"metro:bundling:progress","_t":1790105099072,"id":"u","progress":0.9949811873437541,"total":796,"current":794}
+{"_e":"metro:bundling:progress","_t":1790105099275,"id":"u","progress":0.9974890154289033,"total":796,"current":795}
+{"_e":"metro:bundling:progress","_t":1790105099375,"id":"u","progress":0.999,"total":810,"current":810}
+{"_e":"metro:bundling:done","_t":1790105099450,"id":"u","total":810,"ms":1788.798958}
+{"_e":"metro:client_log","_t":1790105101794,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1790105140073,"id":"12","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790105140074,"id":"12","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790105140094,"id":"12","total":1,"ms":20.610125}
+{"_e":"metro:bundling:started","_t":1790105140166,"id":"14","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790105140216,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790105140216,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"root:init","_t":1790105192269,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790105192269,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790105192271,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790105192354,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790105192483,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790105192550,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790105192719,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790105198450,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790105198451,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105198453,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105198553,"id":"1","progress":0.4699089590404347,"total":531,"current":364}
+{"_e":"metro:bundling:done","_t":1790105198643,"id":"1","total":531,"ms":192.203708}
+{"_e":"metro:client_log","_t":1790105200454,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1790105799751,"id":"6","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790105799751,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105799755,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105799856,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790105800143,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790105800248,"id":"6","total":1,"ms":496.845875}
+{"_e":"metro:client_log","_t":1790105802386,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1790106486605,"id":"a","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790106486606,"id":"a","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790106486611,"id":"a","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790106486711,"id":"a","progress":0.6686888786430149,"total":203,"current":166}
+{"_e":"metro:bundling:failed","_t":1790106486794,"id":"a","message":"SyntaxError: /Users/aarav/Desktop/Project/VGI CAMPUS/mobile/src/components/FeatureModals.js: Expected corresponding JSX closing tag for <ScrollView>. (1577:6)\n\n  1575 |             </View>\n  1576 |           )}\n> 1577 |       </View>\n       |       ^\n  1578 |     </View>\n  1579 |   );\n  1580 | }","importStack":null,"filename":"src/components/FeatureModals.js","targetModuleName":null,"originModulePath":null}
+{"_e":"root:init","_t":1790107422820,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790107422821,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790107422822,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790107422908,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790107423048,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790107423117,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790107423279,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790107451873,"id":"2","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790107451873,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790107451914,"id":"2","total":1,"ms":41.546083}
+{"_e":"metro:bundling:started","_t":1790107459541,"id":"4","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790107459541,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790107459579,"id":"4","total":1,"ms":37.450125}
+{"_e":"metro:client_log","_t":1790107461908,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1790107492415,"level":"warn","data":["[VGI CAMPUS] Backend API connection error:","fetch failed: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:5050"]}
+{"_e":"metro:bundling:started","_t":1790107675129,"id":"8","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790107675129,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790107675131,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790107675231,"id":"8","progress":0.46099590147192987,"total":271,"current":184}
+{"_e":"metro:bundling:done","_t":1790107675333,"id":"8","total":271,"ms":203.998417}
+{"_e":"metro:bundling:started","_t":1790107675407,"id":"9","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790107675459,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790107675459,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790107684918,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1790107684927,"level":"warn","data":["[VGI CAMPUS] Backend API connection error:","Failed to fetch"]}
+{"_e":"metro:client_log","_t":1790107874565,"level":"warn","data":["[VGI CAMPUS] Backend API connection error:","Failed to fetch"]}
+{"_e":"metro:bundling:started","_t":1790107896102,"id":"g","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:started","_t":1790107896205,"id":"h","platform":"web","environment":null,"entry":"src/api.js"}
+{"_e":"metro:bundling:started","_t":1790107896209,"id":"i","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:bundling:failed","_t":1790107939350,"id":null,"message":"Unable to resolve \"../../assets/onboarding/student_avatar.jpg\" from \"src/components/LeftDrawer.js\"\n  18 | } from '../constants/drawerData';\n  19 |\n> 20 | const imgStudentAvatar = require('../../assets/onboarding/student_avatar.jpg');\n     |                                   ^\n  21 |\n  22 | export default function LeftDrawer({\n  23 |   visible,","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/components/LeftDrawer.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"../../assets/onboarding/student_avatar.jpg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/components/LeftDrawer\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n","filename":null,"targetModuleName":"../../assets/onboarding/student_avatar.jpg","originModulePath":"src/components/LeftDrawer.js"}
+{"_e":"metro:client_log","_t":1790107939352,"level":"error","data":["[UnableToResolveError: Unable to resolve module ../../assets/onboarding/student_avatar.jpg from /Users/aarav/Desktop/Project/VGI CAMPUS/mobile/src/components/LeftDrawer.js: \n\nNone of these files exist:\n  * student_avatar.jpg\n  * assets/onboarding/student_avatar.jpg\n  18 | } from '../constants/drawerData';\n  19 |\n> 20 | const imgStudentAvatar = require('../../assets/onboarding/student_avatar.jpg');\n     |                                   ^\n  21 |\n  22 | export default function LeftDrawer({\n  23 |   visible,]"]}
+{"_e":"metro:bundling:started","_t":1790107944669,"id":"l","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790107944669,"id":"l","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790107944670,"id":"l","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:failed","_t":1790107944675,"id":"l","message":"Unable to resolve \"../../assets/onboarding/student_avatar.jpg\" from \"src/components/LeftDrawer.js\"\n  18 | } from '../constants/drawerData';\n  19 |\n> 20 | const imgStudentAvatar = require('../../assets/onboarding/student_avatar.jpg');\n     |                                   ^\n  21 |\n  22 | export default function LeftDrawer({\n  23 |   visible,","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/components/LeftDrawer.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"../../assets/onboarding/student_avatar.jpg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/components/LeftDrawer\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n","filename":null,"targetModuleName":"../../assets/onboarding/student_avatar.jpg","originModulePath":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790108044059,"id":"o","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790108044059,"id":"o","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790108044060,"id":"o","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:failed","_t":1790108044066,"id":"o","message":"Unable to resolve \"../../assets/onboarding/student_avatar.jpg\" from \"src/components/LeftDrawer.js\"\n  18 | } from '../constants/drawerData';\n  19 |\n> 20 | const imgStudentAvatar = require('../../assets/onboarding/student_avatar.jpg');\n     |                                   ^\n  21 |\n  22 | export default function LeftDrawer({\n  23 |   visible,","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/components/LeftDrawer.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"../../assets/onboarding/student_avatar.jpg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/components/LeftDrawer\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n","filename":null,"targetModuleName":"../../assets/onboarding/student_avatar.jpg","originModulePath":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790108083594,"id":"r","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790108083594,"id":"r","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790108083595,"id":"r","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:failed","_t":1790108083603,"id":"r","message":"Unable to resolve \"../../assets/onboarding/student_avatar.jpg\" from \"src/components/LeftDrawer.js\"\n  18 | } from '../constants/drawerData';\n  19 |\n> 20 | const imgStudentAvatar = require('../../assets/onboarding/student_avatar.jpg');\n     |                                   ^\n  21 |\n  22 | export default function LeftDrawer({\n  23 |   visible,","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/components/LeftDrawer.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"../../assets/onboarding/student_avatar.jpg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/components/LeftDrawer\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n","filename":null,"targetModuleName":"../../assets/onboarding/student_avatar.jpg","originModulePath":"src/components/LeftDrawer.js"}
+{"_e":"metro:bundling:started","_t":1790108143998,"id":"t","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790108143998,"id":"t","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790108143999,"id":"t","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790108144082,"id":"t","total":1,"ms":83.939792}
+{"_e":"metro:bundling:started","_t":1790108144150,"id":"v","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790108144205,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790108144205,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790108150553,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1790108450944,"level":"warn","data":["An error occurred in the <AdminModals> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1790108450960,"level":"error","data":["[ReferenceError: TextInput is not defined]","\n\n\u001b[1mCode: AdminModals.js\u001b[22m\n\u001b[0m \u001b[90m 158 |\u001b[39m           \u001b[33m<\u001b[39m\u001b[33mView\u001b[39m style\u001b[33m=\u001b[39m{modalStyles\u001b[33m.\u001b[39mformContainer}\u001b[33m>\u001b[39m\n \u001b[90m 159 |\u001b[39m             \u001b[33m<\u001b[39m\u001b[33mText\u001b[39m style\u001b[33m=\u001b[39m{modalStyles\u001b[33m.\u001b[39minputLabel}\u001b[33m>\u001b[39m\u001b[33mCIRCULAR\u001b[39m \u001b[33mSUBJECT\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mText\u001b[39m\u001b[33m>\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 160 |\u001b[39m             \u001b[33m<\u001b[39m\u001b[33mTextInput\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 161 |\u001b[39m               style\u001b[33m=\u001b[39m{modalStyles\u001b[33m.\u001b[39minputBox}\n \u001b[90m 162 |\u001b[39m               placeholder\u001b[33m=\u001b[39m\u001b[32m\"e.g. Schedule for University Annual Convocation\"\u001b[39m\n \u001b[90m 163 |\u001b[39m               placeholderTextColor\u001b[33m=\u001b[39m{\u001b[33mCOLORS\u001b[39m\u001b[33m.\u001b[39mtextLight}\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  AdminModals (\u001b]8;;src/components/modals/AdminModals.js:160:14\u0007src/components/modals/AdminModals.js:160:14\u001b]8;;\u0007)\u001b[39m","\n\n\u001b[1mCode: FeatureModals.js\u001b[22m\n\u001b[0m \u001b[90m 155 |\u001b[39m\n \u001b[90m 156 |\u001b[39m           {\u001b[33mADMIN_MODAL_KEYS\u001b[39m\u001b[33m.\u001b[39mincludes(activeModal) \u001b[33m&&\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m             \u001b[33m<\u001b[39m\u001b[33mAdminModals\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m               activeModal\u001b[33m=\u001b[39m{activeModal}\n \u001b[90m 159 |\u001b[39m               onClose\u001b[33m=\u001b[39m{onClose}\n \u001b[90m 160 |\u001b[39m             \u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  FeatureModals (\u001b]8;;src/components/FeatureModals.js:157:13\u0007src/components/FeatureModals.js:157:13\u001b]8;;\u0007)\u001b[39m\n\u001b[90m  App (\u001b]8;;App.js:352:13\u0007App.js:352:13\u001b]8;;\u0007)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1790108517218,"id":"12","platform":"web","environment":null,"entry":"src/components/modals/AdminModals.js"}
+{"_e":"metro:bundling:started","_t":1790108524141,"id":"14","platform":"web","environment":null,"entry":"src/components/modals/AdminModals.js"}
+{"_e":"root:init","_t":1790108875429,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790108875429,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790108875430,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790108875522,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790108875668,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790108875742,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790108875899,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"root:init","_t":1790110308974,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790110308975,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790110308976,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790110309078,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790110309216,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790110309283,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790110309450,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790110319813,"id":"2","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790110319814,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110319816,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110319916,"id":"2","progress":0.8386703601108032,"total":760,"current":696}
+{"_e":"metro:bundling:failed","_t":1790110319934,"id":"2","message":"Unable to resolve \"react-native-svg\" from \"src/screens/AttendanceScreen.js\"\n  2 | import { StyleSheet, Text, View, ScrollView } from 'react-native';\n  3 | import { Ionicons } from '@expo/vector-icons';\n> 4 | import Svg, { Circle } from 'react-native-svg';\n    |                              ^\n  5 | function CircularProgress({ percent, size, strokeWidth }) {\n  6 |     size = size || 72; strokeWidth = strokeWidth || 7;\n  7 |     const radius = (size - strokeWidth) / 2;","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/screens/AttendanceScreen.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"react-native-svg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/screens/AttendanceScreen\"\u001b[39m\n\n\u001b[90m \u001b[39mindex.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./index\"\u001b[39m\n","filename":null,"targetModuleName":"react-native-svg","originModulePath":"src/screens/AttendanceScreen.js"}
+{"_e":"metro:bundling:started","_t":1790110333314,"id":"3","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790110333315,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110333316,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110333421,"id":"3","progress":0.8126492214532872,"total":680,"current":613}
+{"_e":"metro:bundling:failed","_t":1790110333449,"id":"3","message":"Unable to resolve \"react-native-svg\" from \"src/screens/AttendanceScreen.js\"\n  2 | import { StyleSheet, Text, View, ScrollView } from 'react-native';\n  3 | import { Ionicons } from '@expo/vector-icons';\n> 4 | import Svg, { Circle } from 'react-native-svg';\n    |                              ^\n  5 | function CircularProgress({ percent, size, strokeWidth }) {\n  6 |     size = size || 72; strokeWidth = strokeWidth || 7;\n  7 |     const radius = (size - strokeWidth) / 2;","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/screens/AttendanceScreen.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"react-native-svg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/screens/AttendanceScreen\"\u001b[39m\n\n\u001b[90m \u001b[39mindex.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./index\"\u001b[39m\n","filename":null,"targetModuleName":"react-native-svg","originModulePath":"src/screens/AttendanceScreen.js"}
+{"_e":"root:init","_t":1790110361360,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790110361360,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790110361361,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790110361440,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790110361558,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790110361624,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790110361757,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790110365470,"id":"1","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790110365471,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110365474,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110365574,"id":"1","progress":0.9891008988025919,"total":183,"current":182}
+{"_e":"metro:bundling:progress","_t":1790110365674,"id":"1","progress":0.999,"total":183,"current":183}
+{"_e":"metro:bundling:progress","_t":1790110365774,"id":"1","progress":0.999,"total":365,"current":361}
+{"_e":"metro:bundling:progress","_t":1790110365838,"id":"1","progress":0.999,"total":365,"current":362}
+{"_e":"metro:bundling:progress","_t":1790110365939,"id":"1","progress":0.999,"total":432,"current":409}
+{"_e":"metro:bundling:progress","_t":1790110366040,"id":"1","progress":0.999,"total":465,"current":445}
+{"_e":"metro:bundling:failed","_t":1790110366128,"id":"1","message":"Unable to resolve \"react-native-svg\" from \"src/screens/AttendanceScreen.js\"\n  2 | import { StyleSheet, Text, View, ScrollView } from 'react-native';\n  3 | import { Ionicons } from '@expo/vector-icons';\n> 4 | import Svg, { Circle } from 'react-native-svg';\n    |                              ^\n  5 | function CircularProgress({ percent, size, strokeWidth }) {\n  6 |     size = size || 72; strokeWidth = strokeWidth || 7;\n  7 |     const radius = (size - strokeWidth) / 2;","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/screens/AttendanceScreen.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"react-native-svg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/screens/AttendanceScreen\"\u001b[39m\n\n\u001b[90m \u001b[39mindex.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./index\"\u001b[39m\n","filename":null,"targetModuleName":"react-native-svg","originModulePath":"src/screens/AttendanceScreen.js"}
+{"_e":"metro:bundling:started","_t":1790110844089,"id":"3","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790110844089,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110844090,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110844190,"id":"3","progress":0.6512773160972606,"total":399,"current":322}
+{"_e":"metro:bundling:failed","_t":1790110844228,"id":"3","message":"Unable to resolve \"react-native-svg\" from \"src/screens/AttendanceScreen.js\"\n  2 | import { StyleSheet, Text, View, ScrollView } from 'react-native';\n  3 | import { Ionicons } from '@expo/vector-icons';\n> 4 | import Svg, { Circle } from 'react-native-svg';\n    |                              ^\n  5 | function CircularProgress({ percent, size, strokeWidth }) {\n  6 |     size = size || 72; strokeWidth = strokeWidth || 7;\n  7 |     const radius = (size - strokeWidth) / 2;","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39msrc/screens/AttendanceScreen.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"react-native-svg\"\u001b[39m\n\n\u001b[90m \u001b[39mApp.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./src/screens/AttendanceScreen\"\u001b[39m\n\n\u001b[90m \u001b[39mindex.js\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./index\"\u001b[39m\n","filename":null,"targetModuleName":"react-native-svg","originModulePath":"src/screens/AttendanceScreen.js"}
+{"_e":"root:init","_t":1790110918426,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790110918426,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790110918428,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790110918513,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790110918650,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790110918723,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790110918980,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790110925761,"id":"1","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790110925762,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110925764,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790110925929,"id":"1","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1790110926033,"id":"1","progress":0.17361111111111113,"total":24,"current":10}
+{"_e":"metro:bundling:progress","_t":1790110926141,"id":"1","progress":0.4162330905306972,"total":31,"current":20}
+{"_e":"metro:bundling:progress","_t":1790110926241,"id":"1","progress":0.4162330905306972,"total":124,"current":52}
+{"_e":"metro:bundling:progress","_t":1790110926341,"id":"1","progress":0.4162330905306972,"total":163,"current":85}
+{"_e":"metro:bundling:progress","_t":1790110926441,"id":"1","progress":0.4240129799891834,"total":215,"current":140}
+{"_e":"metro:bundling:progress","_t":1790110926541,"id":"1","progress":0.4240129799891834,"total":289,"current":187}
+{"_e":"metro:bundling:progress","_t":1790110926641,"id":"1","progress":0.5969149934321637,"total":365,"current":282}
+{"_e":"metro:bundling:progress","_t":1790110926741,"id":"1","progress":0.7357827160493827,"total":450,"current":386}
+{"_e":"metro:bundling:progress","_t":1790110926841,"id":"1","progress":0.94847260528056,"total":498,"current":485}
+{"_e":"metro:bundling:progress","_t":1790110926942,"id":"1","progress":0.996082276047674,"total":510,"current":509}
+{"_e":"metro:bundling:progress","_t":1790110927077,"id":"1","progress":0.999,"total":510,"current":510}
+{"_e":"metro:bundling:done","_t":1790110927139,"id":"1","total":510,"ms":1377.215625}
+{"_e":"metro:client_log","_t":1790110927238,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1790110927243,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790110927243,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790110929721,"level":"warn","data":["Cannot record touch end without a touch start.\n","Touch End: {\"identifier\":0,\"pageX\":404,\"pageY\":343,\"timestamp\":4015.39999999851}\n","Touch Bank: []"]}
+{"_e":"metro:bundling:started","_t":1790110931376,"id":"6","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790110940100,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790111094946,"id":"8","platform":"web","environment":null,"entry":"src/screens/AttendanceScreen.js"}
+{"_e":"metro:bundling:started","_t":1790111153371,"id":"a","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790111153371,"id":"a","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790111153396,"id":"a","total":1,"ms":25.446833}
+{"_e":"metro:bundling:started","_t":1790111153486,"id":"b","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790111153537,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790111153537,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1790111159164,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1790111260673,"id":"i","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790111260673,"id":"i","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790111260674,"id":"i","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790111260774,"id":"i","progress":0.16000000000000003,"total":20,"current":8}
+{"_e":"metro:bundling:progress","_t":1790111260874,"id":"i","progress":0.16000000000000003,"total":196,"current":48}
+{"_e":"metro:bundling:progress","_t":1790111260976,"id":"i","progress":0.16831032215647598,"total":234,"current":96}
+{"_e":"metro:bundling:progress","_t":1790111261076,"id":"i","progress":0.22420057685824518,"total":283,"current":134}
+{"_e":"metro:bundling:progress","_t":1790111261176,"id":"i","progress":0.3719493979576284,"total":405,"current":247}
+{"_e":"metro:bundling:progress","_t":1790111261276,"id":"i","progress":0.4204896466833222,"total":549,"current":356}
+{"_e":"metro:bundling:progress","_t":1790111261376,"id":"i","progress":0.6265124964090778,"total":590,"current":467}
+{"_e":"metro:bundling:progress","_t":1790111261476,"id":"i","progress":0.7496696123695181,"total":641,"current":555}
+{"_e":"metro:bundling:progress","_t":1790111261576,"id":"i","progress":0.7772761349437735,"total":735,"current":648}
+{"_e":"metro:bundling:progress","_t":1790111261676,"id":"i","progress":0.8646153295501874,"total":784,"current":729}
+{"_e":"metro:bundling:progress","_t":1790111261776,"id":"i","progress":0.9803444596860235,"total":810,"current":802}
+{"_e":"metro:bundling:progress","_t":1790111261877,"id":"i","progress":0.9852400548696845,"total":810,"current":804}
+{"_e":"metro:bundling:progress","_t":1790111262027,"id":"i","progress":0.9876924249352232,"total":810,"current":805}
+{"_e":"metro:bundling:progress","_t":1790111262128,"id":"i","progress":0.999,"total":827,"current":827}
+{"_e":"metro:bundling:done","_t":1790111262210,"id":"i","total":827,"ms":1537.616}
+{"_e":"metro:bundling:started","_t":1790111264080,"id":"j","platform":"web","environment":null,"entry":"App.js"}
+{"_e":"metro:client_log","_t":1790111264410,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1790111276418,"id":"l","platform":"web","environment":null,"entry":"src/components/FeatureModals.js"}
+{"_e":"metro:client_log","_t":1790111293210,"level":"warn","data":["[VGI CAMPUS] Backend API connection error:","fetch failed: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:5050"]}
+{"_e":"metro:client_log","_t":1790111322477,"level":"warn","data":["[VGI CAMPUS] Backend API connection error:","fetch failed: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:5050"]}
+{"_e":"metro:bundling:started","_t":1790111337571,"id":"p","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790111337571,"id":"p","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1790111337597,"id":"p","total":1,"ms":25.594375}
+{"_e":"metro:bundling:started","_t":1790111337691,"id":"q","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:client_log","_t":1790111337742,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1790111337742,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"root:init","_t":1790111369761,"format":"v0-jsonl","version":"57.0.26"}
+{"_e":"env:mode","_t":1790111369762,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1790111369763,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_URL":"http://localhost:5050/api/v1","EXPO_PUBLIC_APP_ENV":"development"}}
+{"_e":"devserver:start","_t":1790111369857,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1790111369987,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1790111370049,"plugins":[]}
+{"_e":"metro:instantiate","_t":1790111370254,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1790111376005,"id":"3","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1790111376005,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790111376008,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1790111376208,"id":"3","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1790111376318,"id":"3","progress":0.17361111111111113,"total":12,"current":5}
+{"_e":"metro:bundling:progress","_t":1790111376417,"id":"3","progress":0.25,"total":24,"current":12}
+{"_e":"metro:bundling:progress","_t":1790111376517,"id":"3","progress":0.25,"total":217,"current":81}
+{"_e":"metro:bundling:progress","_t":1790111376617,"id":"3","progress":0.25,"total":243,"current":106}
+{"_e":"metro:bundling:progress","_t":1790111376717,"id":"3","progress":0.25,"total":291,"current":144}
+{"_e":"metro:bundling:progress","_t":1790111376817,"id":"3","progress":0.3200807837004107,"total":403,"current":228}
+{"_e":"metro:bundling:progress","_t":1790111376918,"id":"3","progress":0.4103580671258532,"total":473,"current":303}
+{"_e":"metro:bundling:progress","_t":1790111377019,"id":"3","progress":0.4207990959185756,"total":649,"current":421}
+{"_e":"metro:bundling:progress","_t":1790111377119,"id":"3","progress":0.5543182907986574,"total":685,"current":510}
+{"_e":"metro:bundling:progress","_t":1790111377219,"id":"3","progress":0.7617397227716843,"total":731,"current":638}
+{"_e":"metro:bundling:progress","_t":1790111377319,"id":"3","progress":0.8625885929823619,"total":772,"current":717}
+{"_e":"metro:bundling:progress","_t":1790111377419,"id":"3","progress":0.9581069743133238,"total":803,"current":786}
+{"_e":"metro:bundling:progress","_t":1790111377519,"id":"3","progress":0.9950860025205419,"total":813,"current":811}
+{"_e":"metro:bundling:progress","_t":1790111377716,"id":"3","progress":0.9975414883300124,"total":813,"current":812}
+{"_e":"metro:bundling:progress","_t":1790111377817,"id":"3","progress":0.999,"total":827,"current":827}
+{"_e":"metro:bundling:done","_t":1790111377859,"id":"3","total":827,"ms":1853.9585}
+{"_e":"metro:client_log","_t":1790111379809,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1790111395708,"level":"warn","data":["[VGI CAMPUS] Backend API connection error:","fetch failed: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:5050"]}

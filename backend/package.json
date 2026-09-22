@@ -1,17 +1,14 @@
 {
   "name": "vgi-campus-backend",
   "version": "1.0.0",
-  "description": "VGI CAMPUS Backend REST API",
-  "main": "dist/server.js",
+  "description": "VGI CAMPUS Backend REST API (Node.js & Express)",
+  "main": "src/server.js",
   "scripts": {
-    "dev": "ts-node src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "seed": "node prisma/seed.js",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:db:push": "prisma db push",
-    "seed": "ts-node prisma/seed.ts",
-    "test": "ts-node tests/api.test.ts"
+    "prisma:db:push": "prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
@@ -24,14 +21,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^20.12.12",
-    "prisma": "^5.14.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "prisma": "^5.14.0"
   }
 }

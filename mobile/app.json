@@ -4,8 +4,11 @@
     "slug": "vgi-campus",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/logo.jpeg",
     "userInterfaceStyle": "light",
     "splash": {
+      "image": "./assets/logo.jpeg",
+      "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
     "ios": {
@@ -15,10 +18,12 @@
     "android": {
       "package": "com.vgi.campus",
       "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.jpeg",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
+      "favicon": "./assets/logo.jpeg",
       "bundler": "metro"
     }
   }

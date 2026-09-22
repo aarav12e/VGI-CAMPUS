@@ -46,9 +46,9 @@ VGI CAMPUS/
 
 ## 🛠️ Step-by-Step Setup & How to Run
 
-### 1. Backend REST API (`backend`)
+### 1. Backend REST API (`backend`) - Pure Node.js & Express
 
-The backend powers the entire campus platform, including attendance management, timetable schedules, assignments, notices, hostel grievances, fee accounts, and authentication.
+The backend powers the entire campus platform in pure, easy-to-understand Node.js (JavaScript). It runs directly with Node without any TypeScript or build steps required.
 
 ```bash
 # 1. Navigate into the backend directory
@@ -60,15 +60,16 @@ npm install
 # 3. Create your local environment file
 cp .env.example .env
 
-# 4. Generate the Prisma database client & sync database
-npx prisma generate
-npx prisma db push
+# 4. Generate the database client & sync database
+npm run prisma:generate
+npm run prisma:db:push
 
-# 5. (Optional) Seed demo campus data
+# 5. Seed demo campus data (Students, Faculty, Admin accounts)
 npm run seed
 
-# 6. Start the development server
+# 6. Start the Node.js development server (runs with native hot-reload)
 npm run dev
+# -> Runs: node --watch src/server.js on http://localhost:5050
 ```
 
 * **Default URL**: `http://localhost:5050`
@@ -76,9 +77,9 @@ npm run dev
 
 ---
 
-### 2. Mobile Super-App (`mobile`)
+### 2. Mobile Super-App (`mobile`) - Pure React Native (JavaScript)
 
-The mobile application is built with Expo & React Native. It includes the 4-step onboarding carousel, unified role-based authentication, student portal, faculty attendance roll-call marker, and dedicated parent dashboard.
+The mobile application is written in standard React Native JavaScript with Expo. The entry point is `App.js` right in the root, making it simple to read, customize, and extend. It includes the 4-step onboarding carousel, unified role-based authentication, student portal, faculty attendance roll-call marker, and dedicated parent dashboard.
 
 ```bash
 # 1. Navigate into the mobile directory
