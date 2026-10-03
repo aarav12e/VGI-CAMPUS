@@ -9,6 +9,10 @@ import { TeachersPage } from './pages/TeachersPage';
 import { HierarchyPage } from './pages/HierarchyPage';
 import { TimetablePage } from './pages/TimetablePage';
 import { AttendancePage } from './pages/AttendancePage';
+import { AssignmentsPage } from './pages/AssignmentsPage';
+import { SyllabusPage } from './pages/SyllabusPage';
+import { ResultsPage } from './pages/ResultsPage';
+import { HodConsolePage } from './pages/HodConsolePage';
 import { NoticesPage } from './pages/NoticesPage';
 import { EventsPage } from './pages/EventsPage';
 import { CampusPage } from './pages/CampusPage';
@@ -42,6 +46,18 @@ export const App: React.FC = () => {
     setUser(null);
   }
 
+  function handleRoleSwitch(newUser: any) {
+    setUser(newUser);
+    // If switching to HOD, navigate to HOD console
+    if (newUser.teacher?.designation?.includes('HOD')) {
+      setCurrentTab('hod_console');
+    } else if (newUser.role === 'TEACHER') {
+      setCurrentTab('attendance');
+    } else {
+      setCurrentTab('dashboard');
+    }
+  }
+
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-dark)', color: 'var(--text-muted)' }}>
@@ -51,22 +67,34 @@ export const App: React.FC = () => {
   }
 
   if (!user) {
-    return <LoginPage onLoginSuccess={(u) => setUser(u)} />;
+    return <LoginPage onLoginSuccess={(u) => handleRoleSwitch(u)} />;
   }
 
   return (
     <div className="layout-container">
-      <Sidebar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <Sidebar 
+        currentTab={currentTab} 
+        setCurrentTab={setCurrentTab} 
+        userRole={user.role} 
+      />
 
       <div className="main-content">
-        <Navbar user={user} onLogout={handleLogout} />
+        <Navbar 
+          user={user} 
+          onLogout={handleLogout} 
+          onRoleSwitch={handleRoleSwitch} 
+        />
 
         {currentTab === 'dashboard' && <Dashboard onNavigate={setCurrentTab} />}
+        {currentTab === 'attendance' && <AttendancePage />}
+        {currentTab === 'timetable' && <TimetablePage />}
+        {currentTab === 'assignments' && <AssignmentsPage />}
+        {currentTab === 'syllabus' && <SyllabusPage />}
+        {currentTab === 'results' && <ResultsPage />}
+        {currentTab === 'hod_console' && <HodConsolePage />}
         {currentTab === 'students' && <StudentsPage />}
         {currentTab === 'teachers' && <TeachersPage />}
         {currentTab === 'hierarchy' && <HierarchyPage />}
-        {currentTab === 'timetable' && <TimetablePage />}
-        {currentTab === 'attendance' && <AttendancePage />}
         {currentTab === 'notices' && <NoticesPage />}
         {currentTab === 'events' && <EventsPage />}
         {currentTab === 'campus' && <CampusPage />}

@@ -71,9 +71,12 @@ export default function HodAnalyticsTab({ analytics }) {
             </View>
 
             {sub.isWarning && (
-              <Text style={styles.warningNote}>
-                ⚠️ Attendance below 75% mandatory threshold. HOD notice issued to students.
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 }}>
+                <Ionicons name="alert-circle" size={13} color={COLORS.danger} />
+                <Text style={styles.warningNote}>
+                  Attendance below 75% mandatory threshold. HOD notice issued to students.
+                </Text>
+              </View>
             )}
           </View>
         ))}

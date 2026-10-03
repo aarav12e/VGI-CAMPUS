@@ -1,10 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { modalStyles } from './modalStyles';
 import { COLORS } from '../../theme/colors';
+import { getAllTimetableSlots, subscribeToTimetable } from '../../services/academicSync';
 
-export default function StudentModals({ activeModal, rmsTickets, onAddRmsTicket, onClose }) {
+export default function StudentModals({
+  activeModal,
+  rmsTickets,
+  onAddRmsTicket,
+  onClose,
+  notifications: externalNotifications,
+  onMarkAllNotificationsRead,
+  onMarkOneNotificationRead,
+  onClearAllNotifications,
+  onDismissNotification,
+  onResetNotifications
+}) {
+  const DEFAULT_NOTIFS = [
+    { id: '1', title: 'Admit Cards for Mid-Term Examination ready for download', time: '10 mins ago', tag: 'Exams', isRead: false },
+    { id: '2', title: 'TCS Placement Drive shortlisting round details updated', time: '1 hour ago', tag: 'Placement', isRead: false },
+    { id: '3', title: 'Auditions for Annual Cultural Fest "Vibrance" this Friday', time: '3 hours ago', tag: 'Cultural', isRead: false },
+    { id: '4', title: 'Operating Systems assignment submission deadline: Tomorrow', time: '5 hours ago', tag: 'Academics', isRead: false },
+    { id: '5', title: 'Campus Wi-Fi maintenance completed in Aryabhata Hostel', time: 'Yesterday', tag: 'Hostel', isRead: false }
+  ];
+  const [localNotifs, setLocalNotifs] = useState(DEFAULT_NOTIFS);
+  const [notifTab, setNotifTab] = useState('unread');
+  const [notifFeedback, setNotifFeedback] = useState('');
+
+  // Live Timetable State from Academic Sync (HOD allocations)
+  const [liveTimetableSlots, setLiveTimetableSlots] = useState(() => getAllTimetableSlots());
+  const [timetableDayFilter, setTimetableDayFilter] = useState('All');
+
+  useEffect(() => {
+    const unsub = subscribeToTimetable(() => {
+      setLiveTimetableSlots(getAllTimetableSlots());
+    });
+    return () => unsub();
+  }, []);
+
+  const notifs = externalNotifications !== undefined ? externalNotifications : localNotifs;
+  const unreadNotifs = notifs.filter(n => !n.isRead);
+  const displayedNotifs = notifTab === 'unread' ? unreadNotifs : notifs;
+
+  const handleMarkAllRead = () => {
+    if (onMarkAllNotificationsRead) {
+      onMarkAllNotificationsRead();
+    }
+    setLocalNotifs(prev => prev.map(n => ({ ...n, isRead: true })));
+    setNotifTab('unread');
+    setNotifFeedback('All notifications marked as read');
+    setTimeout(() => setNotifFeedback(''), 2500);
+  };
+
+  const handleMarkOneRead = (id) => {
+    if (onMarkOneNotificationRead) {
+      onMarkOneNotificationRead(id);
+    }
+    setLocalNotifs(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
+  };
+
+  const handleClearAll = () => {
+    if (onClearAllNotifications) {
+      onClearAllNotifications();
+    }
+    setLocalNotifs([]);
+    setNotifFeedback('All notifications cleared');
+    setTimeout(() => setNotifFeedback(''), 2500);
+  };
+
+  const handleDismissOne = (id) => {
+    if (onDismissNotification) {
+      onDismissNotification(id);
+    }
+    setLocalNotifs(prev => prev.filter(n => n.id !== id));
+  };
+
+  const handleResetNotifs = () => {
+    if (onResetNotifications) {
+      onResetNotifications();
+    }
+    setLocalNotifs(DEFAULT_NOTIFS);
+    setNotifFeedback('Restored demo notifications');
+    setTimeout(() => setNotifFeedback(''), 2000);
+  };
+
   // Notices Filter
   const [noticesFilter, setNoticesFilter] = useState('All');
   const [noticesSearch, setNoticesSearch] = useState('');
@@ -78,30 +158,151 @@ export default function StudentModals({ activeModal, rmsTickets, onAddRmsTicket,
       {/* 1. NOTIFICATIONS */}
       {activeModal === 'notifications' && (
         <View>
+          {Boolean(notifFeedback) && (
+            <View style={styles.notifBanner}>
+              <Ionicons name="checkmark-circle" size={16} color="#059669" />
+              <Text style={styles.notifBannerText}>{notifFeedback}</Text>
+            </View>
+          )}
+
           <View style={styles.notificationFilterRow}>
-            <Text style={styles.unreadCountBadge}>28 New Updates</Text>
-            <TouchableOpacity onPress={() => Alert.alert('Notifications', 'All 28 notifications marked as read.')}>
-              <Text style={styles.markReadLink}>Mark all as read</Text>
-            </TouchableOpacity>
+            <View style={styles.notifPillGroup}>
+              <TouchableOpacity
+                style={[styles.notifTabPill, notifTab === 'unread' && styles.notifTabPillActive]}
+                onPress={() => setNotifTab('unread')}
+                activeOpacity={0.7}
+              >
+                <Text style={[styles.notifTabPillText, notifTab === 'unread' && styles.notifTabPillTextActive]}>
+                  Unread ({unreadNotifs.length})
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.notifTabPill, notifTab === 'all' && styles.notifTabPillActive]}
+                onPress={() => setNotifTab('all')}
+                activeOpacity={0.7}
+              >
+                <Text style={[styles.notifTabPillText, notifTab === 'all' && styles.notifTabPillTextActive]}>
+                  All ({notifs.length})
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              {unreadNotifs.length > 0 && (
+                <TouchableOpacity
+                  style={styles.markReadActionBtn}
+                  activeOpacity={0.7}
+                  onPress={handleMarkAllRead}
+                  accessibilityRole="button"
+                >
+                  <Ionicons name="checkmark-done" size={15} color="#1D4ED8" />
+                  <Text style={styles.markReadLink}>Mark all as read</Text>
+                </TouchableOpacity>
+              )}
+              {notifs.length > 0 && (
+                <TouchableOpacity
+                  style={styles.clearAllBtn}
+                  activeOpacity={0.7}
+                  onPress={handleClearAll}
+                  accessibilityRole="button"
+                >
+                  <Ionicons name="trash-outline" size={13} color="#DC2626" />
+                  <Text style={styles.clearAllText}>Clear All</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-          {[
-            { id: '1', title: 'Admit Cards for Mid-Term Examination ready for download', time: '10 mins ago', tag: 'Exams' },
-            { id: '2', title: 'TCS Placement Drive shortlisting round details updated', time: '1 hour ago', tag: 'Placement' },
-            { id: '3', title: 'Auditions for Annual Cultural Fest "Vibrance" this Friday', time: '3 hours ago', tag: 'Cultural' },
-            { id: '4', title: 'Operating Systems assignment submission deadline: Tomorrow', time: '5 hours ago', tag: 'Academics' },
-            { id: '5', title: 'Campus Wi-Fi maintenance completed in Aryabhata Hostel', time: 'Yesterday', tag: 'Hostel' }
-          ].map(n => (
-            <View key={n.id} style={styles.notificationItem}>
-              <View style={styles.notificationDot} />
-              <View style={{ flex: 1 }}>
-                <Text style={styles.notificationTitle}>{n.title}</Text>
-                <View style={styles.notificationMetaRow}>
-                  <Text style={styles.notificationTime}>{n.time}</Text>
-                  <Text style={styles.notificationTag}>{n.tag}</Text>
-                </View>
+
+          {displayedNotifs.length === 0 ? (
+            <View style={styles.notifEmptyCard}>
+              <View style={styles.notifEmptyCircle}>
+                <Ionicons name="checkmark-done" size={32} color="#10B981" />
+              </View>
+              <Text style={styles.notifEmptyTitle}>All Caught Up!</Text>
+              <Text style={styles.notifEmptySub}>
+                {notifTab === 'unread'
+                  ? 'No unread notifications. All messages marked as read.'
+                  : 'No notifications at this time.'}
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 10, marginTop: 14 }}>
+                {notifTab === 'unread' && notifs.length > 0 && (
+                  <TouchableOpacity
+                    style={styles.notifViewAllBtn}
+                    onPress={() => setNotifTab('all')}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.notifViewAllBtnText}>View All History ({notifs.length})</Text>
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity
+                  style={styles.notifResetBtn}
+                  onPress={handleResetNotifs}
+                  activeOpacity={0.7}
+                >
+                  <Ionicons name="refresh-outline" size={14} color="#1D4ED8" />
+                  <Text style={styles.notifResetBtnText}>Restore</Text>
+                </TouchableOpacity>
               </View>
             </View>
-          ))}
+          ) : (
+            displayedNotifs.map(n => (
+              <TouchableOpacity
+                key={n.id}
+                style={[
+                  styles.notificationItem,
+                  n.isRead && styles.notificationItemRead
+                ]}
+                activeOpacity={0.8}
+                onPress={() => handleMarkOneRead(n.id)}
+              >
+                <View
+                  style={[
+                    styles.notificationDot,
+                    n.isRead && styles.notificationDotRead
+                  ]}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={[
+                      styles.notificationTitle,
+                      n.isRead && styles.notificationTitleRead
+                    ]}
+                  >
+                    {n.title}
+                  </Text>
+                  <View style={styles.notificationMetaRow}>
+                    <Text style={styles.notificationTime}>{n.time}</Text>
+                    <Text style={styles.notificationTag}>{n.tag}</Text>
+                    {n.isRead ? (
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                        <Ionicons name="checkmark-circle" size={12} color="#059669" />
+                        <Text style={styles.readStatusText}>Read</Text>
+                      </View>
+                    ) : (
+                      <TouchableOpacity
+                        style={styles.singleMarkReadBtn}
+                        onPress={() => handleMarkOneRead(n.id)}
+                        hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                      >
+                        <Ionicons name="checkmark" size={11} color="#1D4ED8" />
+                        <Text style={styles.singleMarkReadText}>Mark read</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                </View>
+
+                {/* Dismiss button to remove this specific notification */}
+                <TouchableOpacity
+                  style={styles.notifDismissBtn}
+                  activeOpacity={0.6}
+                  onPress={() => handleDismissOne(n.id)}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                >
+                  <Ionicons name="close" size={16} color="#94A3B8" />
+                </TouchableOpacity>
+              </TouchableOpacity>
+            ))
+          )}
         </View>
       )}
 
@@ -235,7 +436,7 @@ export default function StudentModals({ activeModal, rmsTickets, onAddRmsTicket,
                 <View style={styles.assignmentHeader}>
                   <Text style={styles.assignmentSub}>{a.sub}</Text>
                   <Text style={[styles.assignmentDue, isUploaded && { color: COLORS.success }]}>
-                    {isUploaded ? 'SUBMITTED ✓' : `Due: ${a.due}`}
+                    {isUploaded ? 'SUBMITTED' : `Due: ${a.due}`}
                   </Text>
                 </View>
                 <Text style={styles.assignmentTitle}>{a.title}</Text>
@@ -411,7 +612,7 @@ export default function StudentModals({ activeModal, rmsTickets, onAddRmsTicket,
           >
             <Ionicons name="scan" size={18} color={COLORS.white} />
             <Text style={modalStyles.submitActionBtnText}>
-              {scannerSimulated ? 'Verified for Today’s Drive ✓' : 'Scan Drive Checkpoint'}
+              {scannerSimulated ? 'Verified for Today’s Drive' : 'Scan Drive Checkpoint'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -507,26 +708,79 @@ export default function StudentModals({ activeModal, rmsTickets, onAddRmsTicket,
       {activeModal === 'timetable' && (
         <View>
           <Text style={modalStyles.sectionHelperText}>
-            Weekly Academic Routine & Classroom Allocation (Academic Block A & B).
+            Weekly Academic Routine & Classroom Allocation (Set daily a day before by HOD).
           </Text>
-          {[
-            { time: '09:00 - 10:00 AM', slot: 'Period 1', sub: 'Database Management Systems', room: 'LH 201', faculty: 'Dr. Rajesh Sharma' },
-            { time: '10:00 - 11:00 AM', slot: 'Period 2', sub: 'Operating Systems', room: 'LH 201', faculty: 'Prof. Amit Kumar' },
-            { time: '11:15 - 01:15 PM', slot: 'Lab Slot', sub: 'AI & Data Science Lab (Batch A1)', room: 'Lab 3', faculty: 'Prof. Priya Verma' },
-            { time: '02:00 - 03:00 PM', slot: 'Period 4', sub: 'Design & Analysis of Algorithms', room: 'LH 202', faculty: 'Prof. Priya Verma' },
-            { time: '03:00 - 04:00 PM', slot: 'Period 5', sub: 'Technical Communication & Soft Skills', room: 'Seminar Hall', faculty: 'Dr. Neha Kapoor' }
-          ].map((slot, i) => (
-            <View key={i} style={styles.timetableRow}>
-              <View style={styles.timeCol}>
-                <Text style={styles.timeSlotLabel}>{slot.slot}</Text>
-                <Text style={styles.timeSlotHours}>{slot.time}</Text>
+
+          {/* Day Filter Chips */}
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+            {['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(d => {
+              const isSel = timetableDayFilter === d;
+              return (
+                <TouchableOpacity
+                  key={d}
+                  style={[styles.ttDayChip, isSel && styles.ttDayChipActive]}
+                  onPress={() => setTimetableDayFilter(d)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={[styles.ttDayChipText, isSel && styles.ttDayChipTextActive]}>
+                    {d}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+
+          {(() => {
+            const slots = (timetableDayFilter === 'All'
+              ? liveTimetableSlots
+              : liveTimetableSlots.filter(s => s.day?.toLowerCase() === timetableDayFilter.toLowerCase())
+            );
+
+            if (!slots || slots.length === 0) {
+              return (
+                <View style={{ padding: 24, alignItems: 'center', backgroundColor: '#F8FAFC', borderRadius: 12 }}>
+                  <Ionicons name="calendar-outline" size={32} color="#94A3B8" />
+                  <Text style={{ fontSize: 13.5, fontWeight: '700', color: '#64748B', marginTop: 8 }}>
+                    No Scheduled Classes
+                  </Text>
+                  <Text style={{ fontSize: 11.5, color: '#94A3B8', marginTop: 3 }}>
+                    No lecture slots published for {timetableDayFilter}.
+                  </Text>
+                </View>
+              );
+            }
+
+            return slots.map((slot, i) => (
+              <View key={slot.id || i} style={styles.timetableRow}>
+                <View style={styles.timeCol}>
+                  <Text style={styles.timeSlotLabel}>{slot.day ? slot.day.substring(0, 3) : `Period ${i + 1}`}</Text>
+                  <Text style={styles.timeSlotHours}>{slot.time}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                    <Text style={styles.slotSubject}>{slot.subject} ({slot.code})</Text>
+                    {slot.isHodTeaching && (
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, backgroundColor: '#EDE9FE', paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4 }}>
+                        <Ionicons name="shield-checkmark" size={10} color="#6D28D9" />
+                        <Text style={{ fontSize: 9.5, fontWeight: '800', color: '#6D28D9' }}>HOD Teaching</Text>
+                      </View>
+                    )}
+                  </View>
+                  <Text style={styles.slotFaculty}>
+                    Faculty: {slot.faculty} • {slot.room}
+                  </Text>
+                  {slot.dateScheduled ? (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 2 }}>
+                      <Ionicons name="checkmark-circle" size={10} color="#059669" />
+                      <Text style={{ fontSize: 9.5, color: '#059669', fontWeight: '600' }}>
+                        {slot.dateScheduled}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.slotSubject}>{slot.sub}</Text>
-                <Text style={styles.slotFaculty}>{slot.faculty} • {slot.room}</Text>
-              </View>
-            </View>
-          ))}
+            ));
+          })()}
         </View>
       )}
 
@@ -569,42 +823,185 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 12
+    marginBottom: 12,
+    flexWrap: 'wrap',
+    gap: 8
   },
-  unreadCountBadge: {
+  notifBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: '#ECFDF5',
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    marginBottom: 10
+  },
+  notifBannerText: {
     fontSize: 12,
-    fontWeight: '800',
-    color: COLORS.primary
+    fontWeight: '700',
+    color: '#065F46'
+  },
+  notifPillGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6
+  },
+  notifTabPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+    backgroundColor: '#F1F5F9'
+  },
+  notifTabPillActive: {
+    backgroundColor: '#EFF6FF',
+    borderWidth: 1,
+    borderColor: '#BFDBFE'
+  },
+  notifTabPillText: {
+    fontSize: 11.5,
+    fontWeight: '600',
+    color: '#64748B'
+  },
+  notifTabPillTextActive: {
+    color: '#2563EB',
+    fontWeight: '700'
+  },
+  markReadActionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 7,
+    backgroundColor: '#EFF6FF',
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+    cursor: 'pointer'
   },
   markReadLink: {
+    fontSize: 12,
+    color: '#1D4ED8',
+    fontWeight: '700'
+  },
+  clearAllBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 7,
+    backgroundColor: '#FEF2F2',
+    borderWidth: 1,
+    borderColor: '#FECACA',
+    cursor: 'pointer'
+  },
+  clearAllText: {
+    fontSize: 12,
+    color: '#DC2626',
+    fontWeight: '700'
+  },
+  notifEmptyCard: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 32,
+    paddingHorizontal: 16,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    marginVertical: 10
+  },
+  notifEmptyCircle: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#ECFDF5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10
+  },
+  notifEmptyTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#1E293B',
+    marginBottom: 4
+  },
+  notifEmptySub: {
+    fontSize: 12,
+    color: '#64748B',
+    textAlign: 'center',
+    maxWidth: 240
+  },
+  notifViewAllBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 8,
+    backgroundColor: '#EFF6FF',
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+    cursor: 'pointer'
+  },
+  notifViewAllBtnText: {
     fontSize: 11.5,
-    color: COLORS.textMuted,
-    textDecorationLine: 'underline'
+    fontWeight: '700',
+    color: '#2563EB'
+  },
+  notifResetBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 8,
+    backgroundColor: '#F1F5F9',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    cursor: 'pointer'
+  },
+  notifResetBtnText: {
+    fontSize: 11.5,
+    fontWeight: '700',
+    color: '#2563EB'
   },
   notificationItem: {
     flexDirection: 'row',
-    paddingVertical: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#F1F5F9',
     gap: 10,
-    alignItems: 'flex-start'
+    alignItems: 'center',
+    cursor: 'pointer'
+  },
+  notificationItemRead: {
+    opacity: 0.7
   },
   notificationDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: COLORS.accentOrange,
-    marginTop: 6
+    backgroundColor: '#1D4ED8',
+    marginTop: 2
+  },
+  notificationDotRead: {
+    backgroundColor: '#CBD5E1'
   },
   notificationTitle: {
     fontSize: 13,
     fontWeight: '700',
     color: COLORS.primaryDark
   },
+  notificationTitleRead: {
+    color: '#64748B'
+  },
   notificationMetaRow: {
     flexDirection: 'row',
-    gap: 10,
-    marginTop: 3
+    gap: 8,
+    marginTop: 3,
+    alignItems: 'center'
   },
   notificationTime: {
     fontSize: 11,
@@ -612,7 +1009,58 @@ const styles = StyleSheet.create({
   },
   notificationTag: {
     fontSize: 11,
-    color: COLORS.primary,
+    color: '#1D4ED8',
+    fontWeight: '700'
+  },
+  readStatusText: {
+    fontSize: 11,
+    color: '#059669',
+    fontWeight: '600'
+  },
+  singleMarkReadBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    backgroundColor: '#EFF6FF',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#DBEAFE',
+    cursor: 'pointer'
+  },
+  singleMarkReadText: {
+    fontSize: 10.5,
+    color: '#1D4ED8',
+    fontWeight: '700'
+  },
+  notifDismissBtn: {
+    padding: 6,
+    borderRadius: 12,
+    backgroundColor: '#F1F5F9',
+    marginLeft: 6,
+    cursor: 'pointer'
+  },
+  ttDayChip: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    backgroundColor: '#F1F5F9',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    cursor: 'pointer'
+  },
+  ttDayChipActive: {
+    backgroundColor: '#EFF6FF',
+    borderColor: '#BFDBFE'
+  },
+  ttDayChipText: {
+    fontSize: 11.5,
+    fontWeight: '600',
+    color: '#64748B'
+  },
+  ttDayChipTextActive: {
+    color: '#1D4ED8',
     fontWeight: '700'
   },
   circularCard: {

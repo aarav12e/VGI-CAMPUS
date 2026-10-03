@@ -82,32 +82,21 @@ export default function AdminDashboardScreen({
         </TouchableOpacity>
       </View>
 
-      {/* Section 1: Academic Member Enrollment Form */}
-      <AdminEnrollmentSection
-        departmentsList={departmentsList}
-      />
-
-      {/* Section 2: Administrative Control Grids */}
-      <View style={styles.gridsHeaderRow}>
-        <View>
-          <Text style={styles.gridsSectionTitle}>Executive Controls</Text>
-          <Text style={styles.gridsSectionSub}>University modules & statutory workflows.</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.addGridBtn}
-          onPress={onAddTilesPress}
-        >
-          <Ionicons name="add" size={20} color={COLORS.white} />
-        </TouchableOpacity>
-      </View>
-
+      {/* Section 1: Administrative Control Grids (Tab Icons) */}
       <TilesGrid
         activeTileIds={activeTileIds}
-        tilesCatalog={ALL_ADMIN_TILES}
+        catalog={ALL_ADMIN_TILES}
         onTilePress={onTilePress}
         onAddTilesPress={onAddTilesPress}
         editMode={editTilesMode}
         onRemoveTile={onRemoveTile}
+        accentColor="#7C3AED"
+        pillBgColor="#EDE9FE"
+      />
+
+      {/* Section 2: Academic Member Enrollment Form */}
+      <AdminEnrollmentSection
+        departmentsList={departmentsList}
       />
 
       {/* Quick Administrative Action Bar */}

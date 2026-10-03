@@ -1,18 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ALL_STUDENT_TILES } from '../../constants/tilesData';
+import { ALL_STUDENT_TILES, ALL_ADMIN_TILES, ALL_HOD_TILES, ALL_TEACHER_TILES } from '../../constants/tilesData';
 import { modalStyles } from './modalStyles';
 import { COLORS } from '../../theme/colors';
 
-export function CustomizeTilesModal({ activeTileIds, onToggleTile, onClose }) {
+export function CustomizeTilesModal({ activeTileIds, onToggleTile, onClose, role }) {
   const currentTileIds = activeTileIds || [];
+  const catalog = role === 'ADMIN' ? ALL_ADMIN_TILES :
+                  role === 'HOD' ? ALL_HOD_TILES :
+                  role === 'TEACHER' ? ALL_TEACHER_TILES : ALL_STUDENT_TILES;
   return (
     <View>
       <Text style={modalStyles.sectionHelperText}>
         Toggle dashboard grid cards to customize your daily workspace.
       </Text>
-      {ALL_STUDENT_TILES.map(tile => {
+      {catalog.map(tile => {
         const isSelected = currentTileIds.includes(tile.id);
         return (
           <TouchableOpacity

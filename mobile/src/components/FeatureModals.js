@@ -27,13 +27,9 @@ const HOD_MODAL_KEYS = [
   'hod_rollcall',
   'hod_faculty',
   'hod_syllabus',
-  'hod_marks',
-  'hod_leaves',
   'hod_timetable',
   'hod_schedule',
   'hod_labs',
-  'hod_mentorship',
-  'hod_mentoring',
   'hod_circulars'
 ];
 
@@ -56,8 +52,9 @@ const PARENT_MODAL_KEYS = [
 ];
 
 const MODAL_TITLES = {
-  notifications: 'Campus Notifications (28)',
+  notifications: 'Campus Notifications',
   addTiles: 'Customize Dashboard Grids',
+  add_tiles: 'Customize Dashboard Grids',
   announce: 'Announcements & Circulars (15)',
   edu_revolution: 'Edu Revolution (E-Learning)',
   fee_statement: 'Fee Statement & Ledger',
@@ -76,13 +73,9 @@ const MODAL_TITLES = {
   hod_rollcall: 'Class Roll Call & Attendance',
   hod_faculty: 'Faculty Directory & Teacher Manager',
   hod_syllabus: 'Syllabus & Course Coverage',
-  hod_marks: 'Internal Marks & Sessional Entry',
-  hod_leaves: 'Faculty Leave Approvals',
   hod_timetable: 'Department Timetable',
   hod_schedule: 'Dept Class Schedule',
   hod_labs: 'Lab Sessions & Practical Slots',
-  hod_mentorship: 'Student Mentorship & Wards',
-  hod_mentoring: 'Student Mentorship & Wards',
   hod_circulars: 'Department Circulars & Notices',
   admin_students: 'Student Roster & Bulk Import',
   admin_admissions: 'Admissions & Enrollment Matrix',
@@ -103,13 +96,22 @@ export default function FeatureModals({
   activeTileIds,
   onToggleTile,
   rmsTickets,
-  onAddRmsTicket
+  onAddRmsTicket,
+  role,
+  notifications,
+  onMarkAllNotificationsRead,
+  onMarkOneNotificationRead,
+  onClearAllNotifications,
+  onDismissNotification,
+  onResetNotifications
 }) {
   if (!activeModal) return null;
 
   const modalTitle = MODAL_TITLES[activeModal] || (
     activeModal ? activeModal.replace(/_/g, ' ').toUpperCase() : 'VGI Portal Module'
   );
+
+  const isCustomizeTiles = activeModal === 'addTiles' || activeModal === 'add_tiles';
 
   return (
     <View style={modalStyles.featureModalOverlay}>
@@ -126,12 +128,17 @@ export default function FeatureModals({
         </View>
 
         {/* Modal Scrollable Content */}
-        <ScrollView style={modalStyles.featureModalBody} showsVerticalScrollIndicator={false}>
-          {activeModal === 'addTiles' && (
+        <ScrollView
+          style={modalStyles.featureModalBody}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          {isCustomizeTiles && (
             <CustomizeTilesModal
               activeTileIds={activeTileIds}
               onToggleTile={onToggleTile}
               onClose={onClose}
+              role={role}
             />
           )}
 
@@ -141,6 +148,12 @@ export default function FeatureModals({
               rmsTickets={rmsTickets}
               onAddRmsTicket={onAddRmsTicket}
               onClose={onClose}
+              notifications={notifications}
+              onMarkAllNotificationsRead={onMarkAllNotificationsRead}
+              onMarkOneNotificationRead={onMarkOneNotificationRead}
+              onClearAllNotifications={onClearAllNotifications}
+              onDismissNotification={onDismissNotification}
+              onResetNotifications={onResetNotifications}
             />
           )}
 
@@ -165,7 +178,7 @@ export default function FeatureModals({
             />
           )}
 
-          {activeModal !== 'addTiles' &&
+          {!isCustomizeTiles &&
             !STUDENT_MODAL_KEYS.includes(activeModal) &&
             !HOD_MODAL_KEYS.includes(activeModal) &&
             !ADMIN_MODAL_KEYS.includes(activeModal) &&

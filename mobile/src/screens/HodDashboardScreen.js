@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import TilesGrid from '../components/TilesGrid';
-import { ALL_HOD_TILES } from '../constants/tilesData';
 import { COLORS } from '../theme/colors';
 import { apiRequest } from '../api';
-import HodAnalyticsTab from './hod/HodAnalyticsTab';
+import HodStudentsTab from './hod/HodStudentsTab';
+import HodTeachersTab from './hod/HodTeachersTab';
 import HodAllocationsTab from './hod/HodAllocationsTab';
+import HodAnalyticsTab from './hod/HodAnalyticsTab';
 import HodSectionsTab from './hod/HodSectionsTab';
+import HodSyllabusTab from './hod/HodSyllabusTab';
+import DropdownSelect from '../components/DropdownSelect';
+import TilesGrid from '../components/TilesGrid';
+import { ALL_HOD_TILES, DEFAULT_HOD_TILE_IDS } from '../constants/tilesData';
 
 export default function HodDashboardScreen({
   currentUser,
-  activeTileIds,
   onTilePress,
+  onSelectTab,
+  activeTileIds,
   onAddTilesPress,
   editTilesMode,
   onToggleEditTiles,
   onRemoveTile
 }) {
-  const [activeTab, setActiveTab] = useState('analytics'); // 'analytics' | 'sections' | 'allocations'
+  const [activeTab, setActiveTab] = useState('students'); // 'students' | 'rollcall' | 'teachers' | 'allocations' | 'analytics' | 'sections'
 
   const [analytics, setAnalytics] = useState({
     combinedTotalAverage: 89.4,
@@ -75,105 +80,108 @@ export default function HodDashboardScreen({
       contentContainerStyle={styles.dashboardScrollContent}
       showsVerticalScrollIndicator={false}
     >
-      {/* HOD Department Header Alert */}
-      <View style={styles.alertBanner}>
-        <View style={styles.alertIconCircle}>
-          <Ionicons name="school-outline" size={17} color={COLORS.success} />
-        </View>
-        <View style={styles.alertTextWrap}>
-          <Text style={styles.alertTitle}>Dept of CSE • NBA Tier-1 Audit</Text>
-          <Text style={styles.alertSubtitle}>
-            Faculty meeting at 03:30 PM in Seminar Hall B. Review Course Outcomes (CO-PO) mapping.
-          </Text>
-        </View>
-      </View>
-
-      {/* Mini Performance Indicators */}
-      <View style={styles.miniStatsRow}>
-        <TouchableOpacity style={styles.miniStatItem} activeOpacity={0.8} onPress={() => onTilePress('hod_timetable')}>
-          <Text style={[styles.miniStatValue, { color: COLORS.success }]}>3</Text>
-          <Text style={styles.miniStatLabel}>LECTURES TODAY</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.miniStatItem} activeOpacity={0.8} onPress={() => setActiveTab('analytics')}>
-          <Text style={[styles.miniStatValue, { color: '#2563EB' }]}>91.4%</Text>
-          <Text style={styles.miniStatLabel}>DEPT ATTENDANCE</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.miniStatItem} activeOpacity={0.8} onPress={() => onTilePress('hod_marks')}>
-          <Text style={[styles.miniStatValue, { color: COLORS.accentOrange }]}>42</Text>
-          <Text style={styles.miniStatLabel}>MARKS PENDING</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.miniStatItem} activeOpacity={0.8} onPress={() => onTilePress('hod_leaves')}>
-          <Text style={[styles.miniStatValue, { color: COLORS.danger }]}>2</Text>
-          <Text style={styles.miniStatLabel}>LEAVE REQS</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Tab Switcher */}
-      <View style={styles.tabNavRow}>
-        {[
-          { key: 'analytics', label: 'Attendance Analytics', icon: 'bar-chart-outline' },
-          { key: 'allocations', label: 'Teacher Allocation', icon: 'people-outline' },
-          { key: 'sections', label: 'Create Sections', icon: 'add-circle-outline' }
-        ].map(t => (
-          <TouchableOpacity
-            key={t.key}
-            style={[styles.tabNavBtn, activeTab === t.key && styles.tabNavBtnActive]}
-            onPress={() => setActiveTab(t.key)}
-          >
-            <Ionicons
-              name={t.icon}
-              size={14}
-              color={activeTab === t.key ? COLORS.white : COLORS.success}
-            />
-            <Text style={[styles.tabNavText, activeTab === t.key && styles.tabNavTextActive]}>
-              {t.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Tab Contents */}
-      {activeTab === 'analytics' && <HodAnalyticsTab analytics={analytics} />}
-      {activeTab === 'allocations' && <HodAllocationsTab />}
-      {activeTab === 'sections' && <HodSectionsTab />}
-
-      {/* Department Academic Tiles */}
-      <View style={styles.gridsHeaderRow}>
-        <View>
-          <Text style={styles.gridsSectionTitle}>HOD & Faculty Grids</Text>
-          <Text style={styles.gridsSectionSub}>Department academic controls & class workflows.</Text>
-        </View>
-        <TouchableOpacity style={styles.addGridBtn} onPress={onAddTilesPress}>
-          <Ionicons name="add" size={20} color={COLORS.white} />
-        </TouchableOpacity>
-      </View>
-
+      {/* 3-Column Executive HOD Tab Icons Grid */}
       <TilesGrid
-        activeTileIds={activeTileIds}
-        tilesCatalog={ALL_HOD_TILES}
-        onTilePress={onTilePress}
+        activeTileIds={activeTileIds || DEFAULT_HOD_TILE_IDS}
+        catalog={ALL_HOD_TILES}
+        heading="Department Navigation Hub"
+        subheading="Tap any module tab icon to open that dedicated page."
+        accentColor="#7C3AED"
+        pillBgColor="#EDE9FE"
+        onTilePress={(tileId) => {
+          const tabMap = {
+            'hod_syllabus': 'syllabus',
+            'hod_timetable': 'allocations',
+            'hod_rollcall': 'attendance_portal',
+            'hod_faculty': 'teachers',
+            'hod_students': 'students',
+            'hod_analytics': 'analytics',
+            'hod_sections': 'sections',
+            'hod_campus': 'happenings',
+            'hod_rms': 'rms'
+          };
+          if (onSelectTab && tabMap[tileId]) {
+            onSelectTab(tabMap[tileId]);
+          } else if (onTilePress) {
+            onTilePress(tileId);
+          } else if (tabMap[tileId]) {
+            setActiveTab(tabMap[tileId]);
+          }
+        }}
         onAddTilesPress={onAddTilesPress}
-        editMode={editTilesMode}
+        editTilesMode={editTilesMode}
+        onToggleEditTiles={onToggleEditTiles}
         onRemoveTile={onRemoveTile}
       />
 
-      {/* Teaching & Approvals Quick Bar */}
-      <View style={styles.quickBarCard}>
-        <View style={styles.quickBarHeader}>
-          <Ionicons name="checkbox-outline" size={18} color={COLORS.success} />
-          <Text style={styles.quickBarTitle}>Teaching & Approvals Quick Bar</Text>
-        </View>
-        <View style={styles.quickBarRow}>
-          <TouchableOpacity style={styles.quickActionBtn} onPress={() => onTilePress('hod_rollcall')}>
-            <Ionicons name="reader-outline" size={16} color={COLORS.success} />
-            <Text style={styles.quickActionBtnText}>Launch Roll Call</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.quickActionBtn} onPress={() => onTilePress('hod_leaves')}>
-            <Ionicons name="checkmark-circle-outline" size={16} color={COLORS.success} />
-            <Text style={styles.quickActionBtnText}>Approve Leaves</Text>
-          </TouchableOpacity>
-        </View>
+      {/* HOD Module Selector Dropdown (Quick In-Page Switcher) */}
+      <View style={{ marginBottom: 10, marginTop: 4 }}>
+        <DropdownSelect
+          label="SELECT HOD MANAGEMENT MODULE"
+          value={activeTab}
+          options={[
+            { value: 'students', label: 'Students & Sections', subtitle: 'Manage student cohorts by course & section' },
+            { value: 'syllabus', label: 'Course Syllabus Manager', subtitle: 'Add & manage course units & topics' },
+            { value: 'allocations', label: 'Timetable & Class Allocation', subtitle: 'Daily timetable & self-teaching' },
+            { value: 'rollcall', label: 'Take Attendance (Roll-Call)', subtitle: 'Classroom attendance marker' },
+            { value: 'teachers', label: 'Faculty Directory', subtitle: 'Department professors & instructors' },
+            { value: 'analytics', label: 'Attendance Audit', subtitle: 'Department attendance analytics' },
+            { value: 'sections', label: '+ Create Class Section', subtitle: 'Establish new course sections' }
+          ]}
+          onSelect={(val) => {
+            const externalTabs = {
+              'syllabus': 'syllabus',
+              'allocations': 'allocations',
+              'rollcall': 'attendance_portal',
+              'teachers': 'teachers'
+            };
+            if (onSelectTab && externalTabs[val]) {
+              onSelectTab(externalTabs[val]);
+            } else {
+              setActiveTab(val);
+            }
+          }}
+          icon="grid-outline"
+        />
       </View>
+
+      {/* Segment Tab Contents */}
+      {activeTab === 'students' && <HodStudentsTab />}
+      {activeTab === 'syllabus' && <HodSyllabusTab />}
+      {activeTab === 'rollcall' && (
+        <TeacherPortalScreen
+          currentUser={{
+            ...currentUser,
+            role: 'HOD',
+            name: currentUser?.name || 'Dr. Sunita Rao',
+            designation: 'HOD & Professor'
+          }}
+        />
+      )}
+      {activeTab === 'teachers' && <HodTeachersTab />}
+      {activeTab === 'allocations' && <HodAllocationsTab currentUser={currentUser} />}
+      {activeTab === 'analytics' && <HodAnalyticsTab analytics={analytics} />}
+      {activeTab === 'sections' && <HodSectionsTab />}
+
+      {/* Quick Roll Call Shortcut Card */}
+      {activeTab !== 'rollcall' && (
+        <View style={styles.quickBarCard}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+            <Ionicons name="clipboard-outline" size={17} color="#065F46" />
+            <Text style={styles.quickBarTitle}>HOD Classroom Roll-Call</Text>
+          </View>
+          <Text style={styles.quickBarSub}>
+            Take roll-call attendance for your classes and sections across all college departments.
+          </Text>
+          <TouchableOpacity 
+            style={styles.rollCallBtn}
+            onPress={() => onSelectTab ? onSelectTab('attendance_portal') : setActiveTab('rollcall')}
+          >
+            <Ionicons name="checkbox-outline" size={16} color={COLORS.white} />
+            <Text style={styles.rollCallBtnText}>Launch Classroom Roll-Call</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -181,164 +189,153 @@ export default function HodDashboardScreen({
 const styles = StyleSheet.create({
   dashboardContainer: {
     flex: 1,
-    backgroundColor: COLORS.white
+    backgroundColor: '#F8FAFC'
   },
   dashboardScrollContent: {
     paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 28
+    paddingTop: 12,
+    paddingBottom: 40
   },
-  alertBanner: {
+  hodHeaderCard: {
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    elevation: 2
+  },
+  hodHeaderTop: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.successBg,
-    borderWidth: 1,
-    borderColor: COLORS.successBorder,
-    borderRadius: 14,
-    padding: 12,
-    marginBottom: 12,
-    gap: 10
+    gap: 12,
+    marginBottom: 14
   },
-  alertIconCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#DCFCE7',
+  avatarCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#F5F3FF',
+    borderWidth: 1.5,
+    borderColor: '#DDD6FE',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  alertTextWrap: {
-    flex: 1
-  },
-  alertTitle: {
-    fontSize: 13,
+  avatarText: {
+    color: '#6D28D9',
     fontWeight: '800',
-    color: '#065F46',
-    marginBottom: 2
+    fontSize: 16
   },
-  alertSubtitle: {
-    fontSize: 11,
-    color: COLORS.success,
-    lineHeight: 15
+  hodName: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: COLORS.primaryDark
+  },
+  badgeHod: {
+    backgroundColor: '#EDE9FE',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6
+  },
+  badgeHodText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#6D28D9'
+  },
+  hodDepartment: {
+    fontSize: 11.5,
+    color: COLORS.textMuted,
+    marginTop: 2
   },
   miniStatsRow: {
     flexDirection: 'row',
     gap: 8,
-    marginBottom: 14
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
+    paddingTop: 12
   },
   miniStatItem: {
     flex: 1,
-    backgroundColor: COLORS.cardBg,
-    borderRadius: 12,
-    paddingVertical: 10,
-    paddingHorizontal: 6,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: COLORS.border
+    borderColor: '#E2E8F0'
   },
   miniStatValue: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '900',
     marginBottom: 2
   },
   miniStatLabel: {
-    fontSize: 8.5,
+    fontSize: 8,
     fontWeight: '800',
     color: COLORS.textMuted,
-    letterSpacing: 0.5
+    letterSpacing: 0.4
   },
   tabNavRow: {
-    flexDirection: 'row',
-    gap: 6,
-    marginBottom: 14
+    marginBottom: 12
   },
   tabNavBtn: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5,
+    gap: 6,
     paddingVertical: 9,
+    paddingHorizontal: 12,
     borderRadius: 10,
-    backgroundColor: COLORS.successBg,
+    backgroundColor: COLORS.white,
     borderWidth: 1,
-    borderColor: COLORS.successBorder
+    borderColor: '#E2E8F0'
   },
   tabNavBtnActive: {
-    backgroundColor: COLORS.success,
-    borderColor: COLORS.success
+    backgroundColor: '#059669',
+    borderColor: '#059669'
   },
   tabNavText: {
-    fontSize: 10.5,
-    fontWeight: '800',
+    fontSize: 11.5,
+    fontWeight: '700',
     color: '#065F46'
   },
   tabNavTextActive: {
-    color: COLORS.white
-  },
-  gridsHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 6,
-    marginBottom: 10
-  },
-  gridsSectionTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: COLORS.primaryDark
-  },
-  gridsSectionSub: {
-    fontSize: 11.5,
-    color: COLORS.textMuted,
-    marginTop: 1
-  },
-  addGridBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: COLORS.primaryDark,
-    alignItems: 'center',
-    justifyContent: 'center'
+    color: COLORS.white,
+    fontWeight: '800'
   },
   quickBarCard: {
-    backgroundColor: COLORS.successBg,
-    borderRadius: 16,
+    backgroundColor: '#ECFDF5',
+    borderRadius: 14,
     padding: 14,
     borderWidth: 1,
-    borderColor: COLORS.successBorder,
-    marginTop: 12
-  },
-  quickBarHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 10
+    borderColor: '#A7F3D0',
+    marginTop: 6
   },
   quickBarTitle: {
-    fontSize: 13,
+    fontSize: 12.5,
     fontWeight: '800',
     color: '#065F46'
   },
-  quickBarRow: {
-    flexDirection: 'row',
-    gap: 10
+  quickBarSub: {
+    fontSize: 11,
+    color: '#047857',
+    lineHeight: 15,
+    marginBottom: 10
   },
-  quickActionBtn: {
-    flex: 1,
+  rollCallBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
-    backgroundColor: COLORS.white,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: COLORS.successBorder
+    gap: 8,
+    backgroundColor: '#059669',
+    paddingVertical: 11,
+    borderRadius: 10
   },
-  quickActionBtnText: {
-    fontSize: 11.5,
-    fontWeight: '800',
-    color: '#065F46'
+  rollCallBtnText: {
+    color: COLORS.white,
+    fontSize: 12,
+    fontWeight: '800'
   }
 });

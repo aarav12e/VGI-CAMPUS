@@ -43,12 +43,6 @@ export default function HodModals({ activeModal, onClose }) {
     { id: '6', name: 'Pooja Verma', roll: '24DS006', present: true }
   ]);
 
-  // Leave Approvals State
-  const [facultyLeaves, setFacultyLeaves] = useState([
-    { id: '1', name: 'Prof. Priya Verma', reason: 'Attending AICTE International Conference', dates: '24 Sep - 26 Sep', status: 'Pending' },
-    { id: '2', name: 'Prof. Amit Kumar', reason: 'Medical Checkup & Consultation', dates: '25 Sep (Full Day)', status: 'Pending' }
-  ]);
-
   const handleCreateTeacher = async () => {
     if (!newTeacherName.trim()) {
       Alert.alert('Validation Error', 'Please enter Faculty Full Name');
@@ -114,12 +108,6 @@ export default function HodModals({ activeModal, onClose }) {
     Alert.alert(
       'Roll Call Recorded',
       `Attendance locked for ${rollCourse} (${rollYear} - ${rollSection}).\n${presentCount} Present, ${totalCount - presentCount} Absent recorded in VGI ERP.`
-    );
-  };
-
-  const handleLeaveDecision = (id, newStatus) => {
-    setFacultyLeaves(prev =>
-      prev.map(l => (l.id === id ? { ...l, status: newStatus } : l))
     );
   };
 
@@ -372,7 +360,7 @@ export default function HodModals({ activeModal, onClose }) {
               </View>
               <View style={[styles.attendanceBadge, student.present ? styles.badgePresent : styles.badgeAbsent]}>
                 <Text style={[styles.attendanceBadgeText, student.present ? styles.badgeTextPresent : styles.badgeTextAbsent]}>
-                  {student.present ? 'PRESENT ✓' : 'ABSENT ✕'}
+                  {student.present ? 'PRESENT' : 'ABSENT'}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -421,100 +409,7 @@ export default function HodModals({ activeModal, onClose }) {
         </View>
       )}
 
-      {/* 4. INTERNAL MARKS ENTRY */}
-      {activeModal === 'hod_marks' && (
-        <View>
-          <Text style={modalStyles.sectionHelperText}>
-            Sessional-1 & Sessional-2 marks verification and university exam cell submission.
-          </Text>
-          <View style={modalStyles.filterPillsRow}>
-            {['Sessional 1 (30M)', 'Sessional 2 (30M)', 'Internal Lab (25M)', 'Assignments (15M)'].map((t, idx) => (
-              <View key={idx} style={[modalStyles.smallPill, idx === 0 && modalStyles.smallPillActive]}>
-                <Text style={[modalStyles.smallPillText, idx === 0 && modalStyles.smallPillTextActive]}>{t}</Text>
-              </View>
-            ))}
-          </View>
-          {[
-            { roll: '24DS001', name: 'Aarav Patel', s1: '28/30', s2: '27/30', grade: 'A+' },
-            { roll: '24DS002', name: 'Sneha Gupta', s1: '29/30', s2: '30/30', grade: 'O' },
-            { roll: '24DS003', name: 'Rohan Singh', s1: '21/30', s2: '22/30', grade: 'B+' },
-            { roll: '24DS004', name: 'Ananya Sharma', s1: '26/30', s2: '28/30', grade: 'A' },
-            { roll: '24DS005', name: 'Vikram Mehta', s1: '24/30', s2: '25/30', grade: 'A' }
-          ].map((st, i) => (
-            <View key={i} style={styles.marksRowCard}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.marksStudentName}>{st.name}</Text>
-                <Text style={styles.marksStudentRoll}>{st.roll} • B.Tech DS</Text>
-              </View>
-              <View style={styles.marksScoreBox}>
-                <Text style={styles.marksScoreText}>S1: {st.s1}</Text>
-                <Text style={styles.marksScoreText}>S2: {st.s2}</Text>
-              </View>
-              <View style={styles.gradeBadge}>
-                <Text style={styles.gradeBadgeText}>{st.grade}</Text>
-              </View>
-            </View>
-          ))}
-          <TouchableOpacity
-            style={modalStyles.submitActionBtn}
-            onPress={() => Alert.alert('Marks Approved', 'Internal marks locked and synced to University Examination Controller.')}
-          >
-            <Ionicons name="checkmark-done" size={16} color={COLORS.white} />
-            <Text style={modalStyles.submitActionBtnText}>Approve & Publish to Exam Cell</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {/* 5. FACULTY LEAVE APPROVALS */}
-      {activeModal === 'hod_leaves' && (
-        <View>
-          <Text style={modalStyles.sectionHelperText}>
-            Review and approve faculty duty leaves, medical leaves, and conference delegations.
-          </Text>
-          {facultyLeaves.map(item => (
-            <View key={item.id} style={styles.leaveCard}>
-              <View style={styles.leaveHeader}>
-                <Text style={styles.leaveFacultyName}>{item.name}</Text>
-                <View style={[
-                  styles.leaveStatusBadge,
-                  item.status === 'Approved' ? styles.badgePresent :
-                  item.status === 'Declined' ? styles.badgeAbsent : styles.badgePending
-                ]}>
-                  <Text style={[
-                    styles.leaveStatusText,
-                    item.status === 'Approved' ? styles.badgeTextPresent :
-                    item.status === 'Declined' ? styles.badgeTextAbsent : styles.badgeTextPending
-                  ]}>
-                    {item.status.toUpperCase()}
-                  </Text>
-                </View>
-              </View>
-              <Text style={styles.leaveReason}>{item.reason}</Text>
-              <Text style={styles.leaveDates}>Dates: {item.dates}</Text>
-              {item.status === 'Pending' && (
-                <View style={styles.leaveActionRow}>
-                  <TouchableOpacity
-                    style={[styles.leaveBtn, styles.approveBtn]}
-                    onPress={() => handleLeaveDecision(item.id, 'Approved')}
-                  >
-                    <Ionicons name="checkmark" size={14} color={COLORS.success} />
-                    <Text style={styles.approveBtnText}>Approve ✓</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.leaveBtn, styles.declineBtn]}
-                    onPress={() => handleLeaveDecision(item.id, 'Declined')}
-                  >
-                    <Ionicons name="close" size={14} color={COLORS.danger} />
-                    <Text style={styles.declineBtnText}>Decline ✕</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          ))}
-        </View>
-      )}
-
-      {/* 6. LAB SESSIONS */}
+      {/* 4. LAB SESSIONS */}
       {activeModal === 'hod_labs' && (
         <View>
           <Text style={modalStyles.sectionHelperText}>
@@ -534,33 +429,6 @@ export default function HodModals({ activeModal, onClose }) {
               </View>
             </View>
           ))}
-        </View>
-      )}
-
-      {/* 7. MENTORSHIP */}
-      {(activeModal === 'hod_mentorship' || activeModal === 'hod_mentoring') && (
-        <View>
-          <Text style={modalStyles.sectionHelperText}>
-            Faculty Counselor & Ward Mentorship Allocation System.
-          </Text>
-          {[
-            { mentor: 'Dr. Rajesh Sharma', wards: '15 Wards Assigned (B.Tech 3rd Year)', lastMeeting: '18 Sep 2026', topic: 'Mid-term academic counseling & career pathways' },
-            { mentor: 'Prof. Priya Verma', wards: '15 Wards Assigned (BCA & MCA)', lastMeeting: '20 Sep 2026', topic: 'Attendance shortage review (<75%)' },
-            { mentor: 'Dr. Neha Kapoor', wards: '12 Wards Assigned (BBA & MBA)', lastMeeting: '15 Sep 2026', topic: 'Internship & placement preparation' }
-          ].map((m, i) => (
-            <View key={i} style={styles.mentorshipCard}>
-              <Text style={styles.mentorName}>{m.mentor}</Text>
-              <Text style={styles.mentorWards}>{m.wards}</Text>
-              <Text style={styles.mentorNotes}>Last Counseling: {m.lastMeeting} • {m.topic}</Text>
-            </View>
-          ))}
-          <TouchableOpacity
-            style={modalStyles.outlineActionBtn}
-            onPress={() => Alert.alert('Mentorship Matrix', 'Counseling log submitted to Dean of Student Welfare.')}
-          >
-            <Ionicons name="add-circle-outline" size={16} color={COLORS.primary} />
-            <Text style={modalStyles.outlineActionBtnText}>Log New Mentorship Counseling</Text>
-          </TouchableOpacity>
         </View>
       )}
 
@@ -725,120 +593,6 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 3
   },
-  marksRowCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.cardBg,
-    padding: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    marginBottom: 8
-  },
-  marksStudentName: {
-    fontSize: 12.5,
-    fontWeight: '700',
-    color: COLORS.primaryDark
-  },
-  marksStudentRoll: {
-    fontSize: 11,
-    color: COLORS.textMuted,
-    marginTop: 1
-  },
-  marksScoreBox: {
-    marginRight: 10,
-    alignItems: 'flex-end'
-  },
-  marksScoreText: {
-    fontSize: 11.5,
-    fontWeight: '600',
-    color: COLORS.textSecondary
-  },
-  gradeBadge: {
-    backgroundColor: COLORS.primaryLight,
-    borderWidth: 1,
-    borderColor: COLORS.primaryBorder,
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  gradeBadgeText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: COLORS.primary
-  },
-  leaveCard: {
-    backgroundColor: COLORS.cardBg,
-    padding: 12,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    marginBottom: 10
-  },
-  leaveHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  leaveFacultyName: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: COLORS.primaryDark
-  },
-  leaveStatusBadge: {
-    paddingHorizontal: 7,
-    paddingVertical: 3,
-    borderRadius: 6
-  },
-  leaveStatusText: {
-    fontSize: 10.5,
-    fontWeight: '800'
-  },
-  leaveReason: {
-    fontSize: 12,
-    color: COLORS.textSecondary,
-    marginTop: 4
-  },
-  leaveDates: {
-    fontSize: 11.5,
-    color: COLORS.textMuted,
-    marginTop: 2
-  },
-  leaveActionRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 10
-  },
-  leaveBtn: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 4,
-    paddingVertical: 7,
-    borderRadius: 6,
-    borderWidth: 1
-  },
-  approveBtn: {
-    backgroundColor: COLORS.successBg,
-    borderColor: COLORS.successBorder
-  },
-  approveBtnText: {
-    fontSize: 11.5,
-    fontWeight: '700',
-    color: COLORS.success
-  },
-  declineBtn: {
-    backgroundColor: COLORS.dangerBg,
-    borderColor: COLORS.dangerBorder
-  },
-  declineBtnText: {
-    fontSize: 11.5,
-    fontWeight: '700',
-    color: COLORS.danger
-  },
   labCard: {
     backgroundColor: COLORS.cardBg,
     padding: 11,
@@ -869,30 +623,6 @@ const styles = StyleSheet.create({
     fontSize: 10.5,
     fontWeight: '700',
     color: '#047857'
-  },
-  mentorshipCard: {
-    backgroundColor: COLORS.cardBg,
-    padding: 11,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    marginBottom: 9
-  },
-  mentorName: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: COLORS.primaryDark
-  },
-  mentorWards: {
-    fontSize: 11.5,
-    color: '#1D4ED8',
-    fontWeight: '600',
-    marginTop: 2
-  },
-  mentorNotes: {
-    fontSize: 11,
-    color: COLORS.textMuted,
-    marginTop: 2
   },
   noticeCard: {
     backgroundColor: COLORS.cardBg,

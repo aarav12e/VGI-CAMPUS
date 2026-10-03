@@ -103,9 +103,14 @@ npx expo start --ios
 
 ---
 
-### 3. Admin Web Dashboard (`admin`)
+### 3. Institutional Administration & Faculty Web Portal (`admin`)
 
-The admin web portal is built with React and Vite for campus administrative staff.
+The web portal is built with React, Vite, and modern Vanilla CSS. It provides synchronized workspaces for **College Administrators, Heads of Department (HODs), and Faculty Members**, working in real-time sync with student & parent mobile apps:
+
+- **👑 Institutional Administrator**: University analytics, academic hierarchy (departments, programs, batches, semesters, sections), student roster, campus amenities (Hostel, Mess, Library), security audit trail.
+- **🏛️ Head of Department (HOD)**: Department Command Center, faculty course teaching allocations, at-risk attendance monitoring (<75%), class cohort creation, and department broadcasts.
+- **👨‍🏫 Faculty / Teachers**: Interactive Classroom Roll-Call Marker (instant sync to parents & students), Coursework Assignments & Submissions grading suite, Syllabus curriculum builder, and Examination Marks & SGPA registry.
+- **⚡ Real-Time Mobile Sync**: All actions taken in the Web portal (attendance marked, assignments published, grades awarded, results posted) immediately reflect on student & parent phones.
 
 ```bash
 # 1. Navigate into the admin directory
@@ -129,12 +134,13 @@ npm run dev
 
 | Role | Name | User ID / Email | Password | Primary Feature |
 | :--- | :--- | :--- | :--- | :--- |
-| **Regular Student** | Aarav Patel | `aarav.patel@vgi.ac.in` (or `24DS001`) | `Password@123` | 84% Attendance Gauge, Coursework, Hostel & Fees |
-| **Staff / Faculty** | Dr. Rajesh Sharma | `rajesh.sharma@vgi.ac.in` (or `EMP001`) | `Password@123` | Quick Attendance Roll-Call Marker & Class Roster |
-| **Parent** | Suresh Patel | `suresh.patel@vgi.ac.in` (or `PAR24001`) | `Password@123` | Ward Monitoring (Attendance, Fee Receipts, SGPA) |
-| **Administrator** | Prof. S. K. Verma | `admin@vgi.ac.in` (or `ADM001`) | `Admin@123` | University-wide Analytics & Department Management |
+| **👑 Administrator** | College Registrar | `admin@vgi.ac.in` (or `ADM001`) | `admin123` / `Admin@123` | Institutional Analytics, Student/Faculty Roster, Audit Logs |
+| **🏛️ Head of Dept (HOD)** | Dr. Rajesh Sharma | `rajesh.sharma@vgi.ac.in` (or `EMP001`) | `teacher123` / `Password@123` | Faculty Teaching Allocations, Section Setup, Dept Analytics |
+| **👨‍🏫 Faculty Member** | Prof. Priya Verma | `priya.verma@vgi.ac.in` (or `EMP002`) | `teacher123` / `Password@123` | Roll-Call Attendance, Assignments & Grading, Syllabus Upload |
+| **🎓 Student** | Aarav Patel | `aarav.patel@vgi.ac.in` (or `24DS001`) | `student123` / `Password@123` | 84% Attendance Gauge, Coursework, Hostel & Fees |
+| **👨‍👦 Parent** | Suresh Patel | `suresh.patel@vgi.ac.in` (or `PAR24001`) | `parent123` / `Password@123` | Ward Monitoring (Attendance, Fee Receipts, SGPA) |
 
-*Note: The mobile login screen also provides **1-Tap Quick Demo Personas** to switch between any role instantly without typing credentials.*
+*Note: Both the web login screen and mobile login screen provide **1-Click Quick Demo Personas** to switch between any role instantly without typing credentials.*
 
 ---
 

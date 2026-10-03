@@ -1,11 +1,15 @@
 const app = require('./app');
 const { config } = require('./config');
 const { prisma } = require('./prisma');
+const { ensureAcademicDepartments } = require('./modules/academic/academic.bootstrap');
 
 async function startServer() {
   try {
     // Verify connection to Neon PostgreSQL
     await prisma.$connect();
+
+    // Verify all academic departments (B.Tech, B.Pharma, BBA, BCA), HODs, & sections
+    await ensureAcademicDepartments();
 
     const server = app.listen(config.port, () => {
       console.log(`=========================================`);

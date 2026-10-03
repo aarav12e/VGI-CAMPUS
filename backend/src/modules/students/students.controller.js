@@ -95,8 +95,8 @@ async function createStudent(req, res) {
     guardianPhone
   } = req.body;
 
-  if (!email || !fullName || !enrollmentNumber || !rollNumber || !departmentId || !programId || !semesterId || !sectionId) {
-    return sendError(res, 'VALIDATION_ERROR', 'Missing required student registration fields', 400);
+  if (!email || !fullName || !enrollmentNumber || !rollNumber || !programId || !semesterId || !sectionId) {
+    return sendError(res, 'VALIDATION_ERROR', 'Missing required student registration fields (email, fullName, rollNumber, programId, semesterId, sectionId)', 400);
   }
 
   const existingUser = await prisma.user.findUnique({
@@ -104,6 +104,17 @@ async function createStudent(req, res) {
   });
   if (existingUser) {
     return sendError(res, 'CONFLICT', 'User email already exists', 409);
+  }
+
+  // Auto-resolve departmentId from program if omitted
+  let effectiveDeptId = departmentId;
+  if (!effectiveDeptId && programId) {
+    const prog = await prisma.program.findUnique({ where: { id: programId } });
+    effectiveDeptId = prog?.departmentId;
+  }
+  if (!effectiveDeptId) {
+    const anyDept = await prisma.department.findFirst();
+    effectiveDeptId = anyDept?.id;
   }
 
   // Auto-resolve batchId from semester if omitted
@@ -117,7 +128,27 @@ async function createStudent(req, res) {
     effectiveBatchId = anyBatch?.id;
   }
 
+  const effectiveGuardianName = guardianName || (req.body.parentEmail || req.body.guardianEmail ? `${fullName}'s Parent` : 'Guardian');
+  const pEmail = (req.body.parentEmail || req.body.guardianEmail || '').toLowerCase().trim();
+
   const result = await prisma.$transaction(async tx => {
+    // 1. If parent email provided, ensure a PARENT User exists with default password 'parent123'
+    if (pEmail) {
+      const existingParent = await tx.user.findUnique({ where: { email: pEmail } });
+      if (!existingParent) {
+        await tx.user.create({
+          data: {
+            email: pEmail,
+            passwordHash: 'parent123',
+            fullName: effectiveGuardianName,
+            phone: guardianPhone || phone,
+            role: 'PARENT'
+          }
+        });
+      }
+    }
+
+    // 2. Create student user
     const user = await tx.user.create({
       data: {
         email: email.toLowerCase().trim(),
@@ -127,19 +158,21 @@ async function createStudent(req, res) {
         role: 'STUDENT'
       }
     });
+
+    // 3. Create student profile
     const student = await tx.student.create({
       data: {
         userId: user.id,
         enrollmentNumber,
         rollNumber,
-        departmentId,
+        departmentId: effectiveDeptId,
         programId,
         batchId: effectiveBatchId,
         semesterId,
         sectionId,
         cgpa: Number(cgpa) || 0.0,
         hostelRoom,
-        guardianName,
+        guardianName: effectiveGuardianName,
         guardianPhone
       },
       include: {

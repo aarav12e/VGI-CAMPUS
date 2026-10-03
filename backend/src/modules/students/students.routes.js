@@ -11,8 +11,8 @@ router.get('/', authenticate, asyncHandler(studentsController.getStudents));
 // GET student by ID
 router.get('/:id', authenticate, asyncHandler(studentsController.getStudentById));
 
-// CREATE new student
-router.post('/', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN']), asyncHandler(studentsController.createStudent));
+// CREATE new student (Admin & HOD)
+router.post('/', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN', 'HOD']), asyncHandler(studentsController.createStudent));
 
 // GET student dashboard summary
 router.get('/:id/dashboard', authenticate, asyncHandler(studentsController.getStudentDashboard));

@@ -34,9 +34,9 @@ export default function LeftDrawer({
   // Determine drawer menu based on role
   let roleItems = DRAWER_ITEMS;
   let gradientTheme = {
-    headerBg: '#FA7268',
-    subHeader: '#9A3412',
-    accent: '#EA580C'
+    headerBg: '#1E3A8A',
+    subHeader: '#1E293B',
+    accent: '#1D4ED8'
   };
 
   if (currentUser?.role === 'ADMIN') {

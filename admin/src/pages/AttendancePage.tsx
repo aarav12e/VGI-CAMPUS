@@ -139,9 +139,16 @@ export const AttendancePage: React.FC = () => {
 
   return (
     <div className="page-container">
-      <div style={{ marginBottom: '1.75rem' }}>
-        <h1 className="page-title">Faculty Attendance & Roll-Call Portal</h1>
-        <p className="page-subtitle">Interactive roll-call marker for professors and instructors to record and audit classroom attendance</p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <h1 className="page-title">Faculty Attendance & Roll-Call Portal</h1>
+            <span className="badge badge-success">
+              ✓ Live Mobile & Parent Sync
+            </span>
+          </div>
+          <p className="page-subtitle">Interactive roll-call marker for professors and HODs. Marked attendance reflects immediately on student & parent mobile apps</p>
+        </div>
       </div>
 
       {/* Tabs */}

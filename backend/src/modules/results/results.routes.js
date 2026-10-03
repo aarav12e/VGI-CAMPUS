@@ -11,7 +11,7 @@ router.get('/student/:studentId', authenticate, asyncHandler(resultsController.g
 // GET all results (for Admin/Staff overview)
 router.get('/', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN', 'TEACHER', 'HOD']), asyncHandler(resultsController.getAllResults));
 
-// CREATE / RECORD RESULT (Admin or Authorized Faculty)
-router.post('/', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN']), asyncHandler(resultsController.createResult));
+// CREATE / RECORD RESULT (Admin, HOD or Authorized Faculty)
+router.post('/', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN', 'HOD', 'TEACHER']), asyncHandler(resultsController.createResult));
 
 module.exports = router;

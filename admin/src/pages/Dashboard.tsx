@@ -89,7 +89,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
           </div>
           <div className="stat-number">{stats.totalStudents || 3}</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', fontSize: '0.775rem', color: '#34d399' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', fontSize: '0.775rem', color: '#059669' }}>
             <span>Verified against Academic Hierarchy</span>
           </div>
         </div>
@@ -117,7 +117,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
           </div>
           <div className="stat-number">{stats.averageAttendance || 86}%</div>
-          <div style={{ fontSize: '0.775rem', color: stats.averageAttendance >= 75 ? '#34d399' : '#f87171', marginTop: '0.5rem' }}>
+          <div style={{ fontSize: '0.775rem', color: stats.averageAttendance >= 75 ? '#059669' : '#dc2626', marginTop: '0.5rem' }}>
             {stats.averageAttendance >= 75 ? 'Above 75% Statutory Requirement' : 'Attendance Attention Needed'}
           </div>
         </div>
@@ -134,6 +134,62 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
             {stats.totalHostelOccupied || 4} / {stats.totalHostelCapacity || 6} Beds Occupied
           </div>
+        </div>
+      </div>
+
+      {/* Quick Role & Teaching Workflows Bar */}
+      <div style={{ marginBottom: '2rem' }}>
+        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span>⚡ Fast Action Workflows (Synchronized with Mobile)</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+          <button 
+            onClick={() => onNavigate('attendance')}
+            className="stat-card"
+            style={{ textAlign: 'left', cursor: 'pointer', border: '1px solid #bfdbfe', background: '#f8fafc', padding: '1rem' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+              <span className="badge badge-primary">Roll-Call</span>
+            </div>
+            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)' }}>Daily Classroom Roll-Call</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Mark present/absent with instant sync to parents & students</div>
+          </button>
+
+          <button 
+            onClick={() => onNavigate('assignments')}
+            className="stat-card"
+            style={{ textAlign: 'left', cursor: 'pointer', border: '1px solid #bfdbfe', background: '#f8fafc', padding: '1rem' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+              <span className="badge badge-success">Assignments</span>
+            </div>
+            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)' }}>Coursework & Submissions</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Review student homework submissions and award marks</div>
+          </button>
+
+          <button 
+            onClick={() => onNavigate('hod_console')}
+            className="stat-card"
+            style={{ textAlign: 'left', cursor: 'pointer', border: '1px solid #ddd6fe', background: '#f8fafc', padding: '1rem' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+              <span className="badge" style={{ background: '#f5f3ff', color: '#6d28d9', border: '1px solid #ddd6fe' }}>HOD Hub</span>
+            </div>
+            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)' }}>Faculty Teaching Allocation</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Assign professors to courses & monitor attendance health</div>
+          </button>
+
+          <button 
+            onClick={() => onNavigate('results')}
+            className="stat-card"
+            style={{ textAlign: 'left', cursor: 'pointer', border: '1px solid #fde68a', background: '#f8fafc', padding: '1rem' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+              <span className="badge badge-warning">Grading</span>
+            </div>
+            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)' }}>Examination Marks & SGPA</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Record internal/external marks and publish report cards</div>
+          </button>
         </div>
       </div>
 

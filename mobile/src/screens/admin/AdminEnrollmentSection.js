@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../theme/colors';
-import { UNIVERSITY_COURSES, ACADEMIC_YEARS } from '../../constants/academicData';
+import { UNIVERSITY_COURSES, ACADEMIC_YEARS, DEFAULT_DEPARTMENTS } from '../../constants/academicData';
 import { apiRequest } from '../../api';
+import DropdownSelect from '../../components/DropdownSelect';
 
-export default function AdminEnrollmentSection({ departmentsList, onEnrollSuccess }) {
+export default function AdminEnrollmentSection({ departmentsList = DEFAULT_DEPARTMENTS, onEnrollSuccess }) {
+  const depts = (Array.isArray(departmentsList) && departmentsList.length > 0) ? departmentsList : DEFAULT_DEPARTMENTS;
   const [enrollType, setEnrollType] = useState('HOD'); // 'HOD' | 'TEACHER' | 'STUDENT'
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -13,7 +15,7 @@ export default function AdminEnrollmentSection({ departmentsList, onEnrollSucces
   const [phone, setPhone] = useState('+91 98');
   const [password, setPassword] = useState('hod123');
   const [departmentCode, setDepartmentCode] = useState('CSE');
-  const [headOfYear, setHeadOfYear] = useState('3rd Year');
+  const [hodAssignedYears, setHodAssignedYears] = useState('1st Year, 2nd Year');
   const [selectedCourse, setSelectedCourse] = useState('B.Tech');
   const [studentYear, setStudentYear] = useState('1st Year');
   const [loading, setLoading] = useState(false);
@@ -47,9 +49,40 @@ export default function AdminEnrollmentSection({ departmentsList, onEnrollSucces
     setSuccessBanner(null);
 
     try {
-      const dept = departmentsList.find(d => d.code === departmentCode) || departmentsList[0];
+      const dept = depts.find(d => d.code === departmentCode) || depts[0];
 
-      if (enrollType === 'HOD' || enrollType === 'TEACHER') {
+      if (enrollType === 'HOD') {
+        const res = await apiRequest('/academic/assign-hod', {
+          method: 'POST',
+          body: JSON.stringify({
+            departmentId: dept.id,
+            fullName: fullName.trim(),
+            email: email.trim().toLowerCase(),
+            employeeId: identifier.trim().toUpperCase(),
+            phone: phone.trim(),
+            qualification: 'Ph.D. in ' + dept.name,
+            academicYear: hodAssignedYears,
+            academicYears: hodAssignedYears.split(', ')
+          })
+        });
+
+        setLoading(false);
+        if (res.success || res.data) {
+          setSuccessBanner({
+            type: 'HOD',
+            name: fullName,
+            id: identifier.toUpperCase(),
+            email: email.toLowerCase(),
+            password: password || 'hod123',
+            year: `${dept.name} (${hodAssignedYears})`
+          });
+          setFullName('');
+          setEmail('');
+          if (onEnrollSuccess) onEnrollSuccess();
+        } else {
+          setErrorMsg(res.error?.message || 'Failed to designate HOD');
+        }
+      } else if (enrollType === 'TEACHER') {
         const res = await apiRequest('/teachers', {
           method: 'POST',
           body: JSON.stringify({
@@ -57,26 +90,23 @@ export default function AdminEnrollmentSection({ departmentsList, onEnrollSucces
             email: email.trim().toLowerCase(),
             employeeId: identifier.trim().toUpperCase(),
             phone: phone.trim(),
-            password: password || (enrollType === 'HOD' ? 'hod123' : 'teacher123'),
+            password: password || 'teacher123',
             departmentId: dept.id,
             departmentCode: dept.code,
-            role: enrollType,
-            headOfYear: enrollType === 'HOD' ? headOfYear : undefined,
-            designation: enrollType === 'HOD'
-              ? `HOD (${headOfYear}) • Professor`
-              : `${selectedCourse} (${studentYear}) Faculty • Assistant Professor`
+            role: 'TEACHER',
+            designation: `${selectedCourse} (${studentYear}) Faculty • Assistant Professor`
           })
         });
 
         setLoading(false);
         if (res.success) {
           setSuccessBanner({
-            type: enrollType,
+            type: 'TEACHER',
             name: fullName,
             id: identifier.toUpperCase(),
             email: email.toLowerCase(),
-            password: password || (enrollType === 'HOD' ? 'hod123' : 'teacher123'),
-            year: enrollType === 'HOD' ? headOfYear : `${selectedCourse} (${studentYear})`
+            password: password || 'teacher123',
+            year: `${selectedCourse} (${studentYear})`
           });
           setFullName('');
           setEmail('');
@@ -146,15 +176,21 @@ export default function AdminEnrollmentSection({ departmentsList, onEnrollSucces
       {/* Role Tabs */}
       <View style={styles.roleTabsRow}>
         {[
-          { key: 'HOD', label: '👑 Add HOD' },
-          { key: 'TEACHER', label: '👨‍🏫 Add Teacher' },
-          { key: 'STUDENT', label: '🎓 Add Student' }
+          { key: 'HOD', label: 'Add HOD', icon: 'shield-checkmark' },
+          { key: 'TEACHER', label: 'Add Faculty', icon: 'person' },
+          { key: 'STUDENT', label: 'Add Student', icon: 'school' }
         ].map(tab => (
           <TouchableOpacity
             key={tab.key}
             style={[styles.roleTabBtn, enrollType === tab.key && styles.roleTabBtnActive]}
             onPress={() => handleEnrollTypeSwitch(tab.key)}
+            activeOpacity={0.7}
           >
+            <Ionicons
+              name={tab.icon}
+              size={14}
+              color={enrollType === tab.key ? '#FFFFFF' : '#64748B'}
+            />
             <Text style={[styles.roleTabBtnText, enrollType === tab.key && styles.roleTabBtnTextActive]}>
               {tab.label}
             </Text>
@@ -198,71 +234,55 @@ export default function AdminEnrollmentSection({ departmentsList, onEnrollSucces
           </View>
         </View>
 
-        {enrollType === 'HOD' && (
-          <View style={{ marginTop: 8 }}>
-            <Text style={styles.inputLabel}>DESIGNATE HEAD OF YEAR</Text>
-            <View style={styles.yearSelectorRow}>
-              {['1st Year', '2nd Year', '3rd Year', '4th Year', 'All Years'].map(yr => (
-                <TouchableOpacity
-                  key={yr}
-                  style={[styles.yearPill, headOfYear === yr && styles.yearPillActive]}
-                  onPress={() => setHeadOfYear(yr)}
-                >
-                  <Text style={[styles.yearPillText, headOfYear === yr && styles.yearPillTextActive]}>{yr}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
+        {/* Dropdown for HOD Academic Years or Degree Course */}
+        {enrollType === 'HOD' ? (
+          <DropdownSelect
+            label="ASSIGNED ACADEMIC YEARS"
+            value={hodAssignedYears}
+            options={[
+              { label: 'All Years (1st - 4th Year)', value: 'All Years' },
+              { label: '1st & 2nd Year (Junior Coordinator)', value: '1st Year, 2nd Year' },
+              { label: '3rd & 4th Year (Senior Coordinator)', value: '3rd Year, 4th Year' },
+              { label: '1st Year (Freshman HOD)', value: '1st Year' },
+              { label: '2nd Year', value: '2nd Year' },
+              { label: '3rd Year', value: '3rd Year' },
+              { label: '4th Year (Senior HOD)', value: '4th Year' }
+            ]}
+            onSelect={(val) => setHodAssignedYears(val)}
+            icon="calendar-outline"
+          />
+        ) : (
+          <DropdownSelect
+            label="SELECT DEGREE / PROGRAM"
+            value={selectedCourse}
+            options={UNIVERSITY_COURSES.map(c => ({ label: c, value: c }))}
+            onSelect={(val) => setSelectedCourse(val)}
+            icon="school-outline"
+          />
         )}
 
-        <View style={{ marginTop: 8 }}>
-          <Text style={styles.inputLabel}>SELECT DEGREE / PROGRAM</Text>
-          <View style={styles.deptScroll}>
-            {UNIVERSITY_COURSES.map(course => (
-              <TouchableOpacity
-                key={course}
-                style={[styles.deptPill, selectedCourse === course && styles.deptPillActive]}
-                onPress={() => setSelectedCourse(course)}
-              >
-                <Text style={[styles.deptPillText, selectedCourse === course && styles.deptPillTextActive]}>{course}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
+        {/* Dropdown for Student Academic Year */}
         {enrollType !== 'HOD' && (
-          <View style={{ marginTop: 8 }}>
-            <Text style={styles.inputLabel}>ACADEMIC YEAR</Text>
-            <View style={styles.yearSelectorRow}>
-              {ACADEMIC_YEARS.map(yr => (
-                <TouchableOpacity
-                  key={yr}
-                  style={[styles.yearPill, studentYear === yr && styles.yearPillActive]}
-                  onPress={() => setStudentYear(yr)}
-                >
-                  <Text style={[styles.yearPillText, studentYear === yr && styles.yearPillTextActive]}>{yr}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
+          <DropdownSelect
+            label="ACADEMIC YEAR"
+            value={studentYear}
+            options={ACADEMIC_YEARS.map(yr => ({ label: yr, value: yr }))}
+            onSelect={(val) => setStudentYear(val)}
+            icon="calendar-outline"
+          />
         )}
 
-        <View style={{ marginTop: 8 }}>
-          <Text style={styles.inputLabel}>ACADEMIC DEPARTMENT</Text>
-          <View style={styles.deptScroll}>
-            {departmentsList.map(d => (
-              <TouchableOpacity
-                key={d.code}
-                style={[styles.deptPill, departmentCode === d.code && styles.deptPillActive]}
-                onPress={() => setDepartmentCode(d.code)}
-              >
-                <Text style={[styles.deptPillText, departmentCode === d.code && styles.deptPillTextActive]}>
-                  {d.code} ({d.name.split(' ')[0]})
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
+        {/* Dropdown for Academic Department */}
+        <DropdownSelect
+          label="ACADEMIC DEPARTMENT"
+          value={departmentCode}
+          options={depts.map(d => ({
+            label: `${d.code} — ${d.name}`,
+            value: d.code
+          }))}
+          onSelect={(val) => setDepartmentCode(val)}
+          icon="business-outline"
+        />
 
         <View style={styles.formRow}>
           <View style={{ flex: 1 }}>

@@ -19,16 +19,18 @@ export default function ParentDashboardScreen({
     onToggleEditTiles,
     onRemoveTile
 }) {
-    const ward = currentUser?.ward || {
-        name: 'Aarav Patel',
-        rollNumber: '24DS001',
-        program: 'B.Tech Data Science (CSE)',
-        semester: 5,
-        attendance: 84,
-        cgpa: '8.65',
-        hostelRoom: 'Aryabhata Hostel - Room 204',
-        feeStatus: 'PAID',
-        feeAmount: '₹ 1,25,000'
+    const rawWard = currentUser?.ward;
+    const ward = {
+        name: rawWard?.user?.fullName || rawWard?.name || 'Aarav Patel',
+        rollNumber: rawWard?.rollNumber || '24DS001',
+        program: typeof rawWard?.program === 'object' ? (rawWard.program.name || rawWard.program.code) : (rawWard?.program || 'B.Tech Data Science (CSE)'),
+        semester: typeof rawWard?.semester === 'object' ? rawWard.semester.number : (rawWard?.semester || 5),
+        section: typeof rawWard?.section === 'object' ? rawWard.section.name : (rawWard?.section || 'Section A'),
+        attendance: rawWard?.attendance !== undefined ? rawWard.attendance : 84,
+        cgpa: rawWard?.cgpa !== undefined && rawWard?.cgpa !== null ? String(rawWard.cgpa) : '8.65',
+        hostelRoom: rawWard?.hostelRoom || 'Aryabhata Hostel - Room 204',
+        feeStatus: rawWard?.feeStatus || 'PAID',
+        feeAmount: rawWard?.feeAmount || '₹ 1,25,000'
     };
 
     return (
@@ -99,7 +101,7 @@ export default function ParentDashboardScreen({
                 onToggleEditTiles={onToggleEditTiles}
                 onRemoveTile={onRemoveTile}
                 heading="Parent & Ward Grids"
-                subheading="Track attendance, grades, fee receipts, & bus."
+                subheading="Track attendance, grades, fee receipts, & hostel outpass."
                 accentColor="#2563EB"
                 pillBgColor="#DBEAFE"
             />

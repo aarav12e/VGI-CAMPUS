@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { apiRequest, setStoredToken, setStoredUser } from '../api';
-import { Shield, Lock, Mail, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Shield, Lock, Mail, ArrowRight, Sparkles, CheckCircle2, Smartphone, Users, Award, BookOpen } from 'lucide-react';
 
 interface LoginPageProps {
   onLoginSuccess: (user: any) => void;
@@ -8,7 +8,7 @@ interface LoginPageProps {
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('admin@vgi.ac.in');
-  const [password, setPassword] = useState('Admin@123');
+  const [password, setPassword] = useState('admin123');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,9 +32,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     setLoading(false);
   }
 
-  function handleQuickLogin(userEmail: string, userPass: string) {
+  async function handleQuickLogin(userEmail: string, userPass: string) {
     setEmail(userEmail);
     setPassword(userPass);
+    setError(null);
+    setLoading(true);
+
+    const res = await apiRequest('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email: userEmail, password: userPass })
+    });
+
+    if (res.success && res.data) {
+      setStoredToken(res.data.token);
+      setStoredUser(res.data.user);
+      onLoginSuccess(res.data.user);
+    } else {
+      setError(res.error?.message || 'Invalid credentials');
+    }
+    setLoading(false);
   }
 
   return (
@@ -47,7 +63,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       padding: '1.5rem'
     }}>
       <div style={{
-        maxWidth: '440px',
+        maxWidth: '480px',
         width: '100%',
         background: '#ffffff',
         border: '1px solid #e2e8f0',
@@ -57,7 +73,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         position: 'relative'
       }}>
         {/* Brand Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
           <div style={{
             width: '56px',
             height: '56px',
@@ -76,8 +92,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           </div>
           <h1 style={{ fontSize: '1.6rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#0f172a' }}>VGI CAMPUS</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-            Unified Institutional Administration Platform
+            Unified Institutional Administration & Faculty Web Portal
           </p>
+
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.65rem', background: '#ecfdf5', padding: '0.25rem 0.75rem', borderRadius: '999px', border: '1px solid #a7f3d0' }}>
+            <Smartphone size={12} color="#059669" />
+            <span style={{ fontSize: '0.725rem', color: '#059669', fontWeight: 700 }}>
+              Live Bi-Directional Mobile Synchronization Active
+            </span>
+          </div>
         </div>
 
         {error && (
@@ -98,15 +121,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         {/* Login Form */}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Campus Email</label>
+            <label className="form-label">Campus Email or Employee ID</label>
             <div style={{ position: 'relative' }}>
               <Mail size={16} color="#64748b" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
               <input 
-                type="email" 
+                type="text" 
                 className="form-input" 
                 style={{ paddingLeft: '2.4rem' }}
                 required 
-                placeholder="admin@vgi.ac.in"
+                placeholder="admin@vgi.ac.in or emp001"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -140,29 +163,62 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           </button>
         </form>
 
-        {/* 1-Click Demo Accounts */}
-        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '0.75rem', color: '#64748b', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', fontWeight: 600 }}>
-            Quick Demo Access (1-Click)
+        {/* 1-Click Role Direct Logins */}
+        <div style={{ marginTop: '1.75rem', paddingTop: '1.25rem', borderTop: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: '0.725rem', color: '#64748b', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.75rem', fontWeight: 700 }}>
+            Instant 1-Click Role Launchers
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            {/* Admin */}
             <button 
               type="button" 
-              onClick={() => handleQuickLogin('admin@vgi.ac.in', 'Admin@123')}
+              onClick={() => handleQuickLogin('admin@vgi.ac.in', 'admin123')}
               className="btn btn-secondary" 
-              style={{ justifyContent: 'space-between', fontSize: '0.8rem', padding: '0.5rem 0.85rem' }}
+              style={{ justifyContent: 'space-between', fontSize: '0.8rem', padding: '0.6rem 0.85rem' }}
             >
-              <span>👑 College Administrator</span>
-              <code style={{ color: '#2563eb', fontSize: '0.75rem' }}>admin@vgi.ac.in</code>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '1rem' }}>👑</span>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>College Registrar / Admin</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Full campus management & security audit</div>
+                </div>
+              </div>
+              <code style={{ color: '#2563eb', fontSize: '0.75rem', fontWeight: 600 }}>admin@vgi.ac.in</code>
             </button>
+
+            {/* HOD */}
             <button 
               type="button" 
-              onClick={() => handleQuickLogin('rajesh.sharma@vgi.ac.in', 'Password@123')}
+              onClick={() => handleQuickLogin('rajesh.sharma@vgi.ac.in', 'teacher123')}
               className="btn btn-secondary" 
-              style={{ justifyContent: 'space-between', fontSize: '0.8rem', padding: '0.5rem 0.85rem' }}
+              style={{ justifyContent: 'space-between', fontSize: '0.8rem', padding: '0.6rem 0.85rem' }}
             >
-              <span>👨‍🏫 Dr. Rajesh Sharma (Faculty)</span>
-              <code style={{ color: '#059669', fontSize: '0.75rem' }}>rajesh.sharma@vgi.ac.in</code>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '1rem' }}>🏛️</span>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontWeight: 700, color: '#6d28d9' }}>Dr. Rajesh Sharma (HOD CSE)</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Faculty allocation & dept analytics</div>
+                </div>
+              </div>
+              <code style={{ color: '#6d28d9', fontSize: '0.75rem', fontWeight: 600 }}>rajesh.sharma@vgi.ac.in</code>
+            </button>
+
+            {/* Faculty */}
+            <button 
+              type="button" 
+              onClick={() => handleQuickLogin('priya.verma@vgi.ac.in', 'teacher123')}
+              className="btn btn-secondary" 
+              style={{ justifyContent: 'space-between', fontSize: '0.8rem', padding: '0.6rem 0.85rem' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '1rem' }}>👨‍🏫</span>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontWeight: 700, color: '#059669' }}>Prof. Priya Verma (Faculty)</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Daily roll call, assignments & study notes</div>
+                </div>
+              </div>
+              <code style={{ color: '#059669', fontSize: '0.75rem', fontWeight: 600 }}>priya.verma@vgi.ac.in</code>
             </button>
           </div>
         </div>

@@ -11,19 +11,21 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function ParentPortalScreen({
     currentUser,
-    onLogout
+    onLogout,
+    onSelectTab
 }) {
-    const ward = currentUser?.ward || {
-        name: 'Aarav Patel',
-        rollNumber: '24DS001',
-        program: 'B.Tech Data Science (CSE)',
-        semester: 5,
-        section: 'Section A',
-        attendance: 84,
-        cgpa: '8.65',
-        hostelRoom: 'Aryabhata Hostel - Room 204',
-        feeStatus: 'PAID',
-        feeAmount: '₹ 1,25,000'
+    const rawWard = currentUser?.ward;
+    const ward = {
+        name: rawWard?.user?.fullName || rawWard?.name || 'Aarav Patel',
+        rollNumber: rawWard?.rollNumber || '24DS001',
+        program: typeof rawWard?.program === 'object' ? (rawWard.program.name || rawWard.program.code) : (rawWard?.program || 'B.Tech Data Science (CSE)'),
+        semester: typeof rawWard?.semester === 'object' ? rawWard.semester.number : (rawWard?.semester || 5),
+        section: typeof rawWard?.section === 'object' ? rawWard.section.name : (rawWard?.section || 'Section A'),
+        attendance: rawWard?.attendance !== undefined ? rawWard.attendance : 84,
+        cgpa: rawWard?.cgpa !== undefined && rawWard?.cgpa !== null ? String(rawWard.cgpa) : '8.65',
+        hostelRoom: rawWard?.hostelRoom || 'Aryabhata Hostel - Room 204',
+        feeStatus: rawWard?.feeStatus || 'PAID',
+        feeAmount: rawWard?.feeAmount || '₹ 1,25,000'
     };
 
     const handleCallMentor = () => {
@@ -95,6 +97,32 @@ export default function ParentPortalScreen({
                 </View>
             </View>
 
+            {/* Subject-Wise Attendance Breakdown */}
+            <View style={styles.subjectsCard}>
+                <View style={styles.subjectsHeader}>
+                    <Ionicons name="stats-chart-outline" size={18} color="#2563EB" />
+                    <Text style={styles.subjectsTitle}>Subject-Wise Attendance</Text>
+                </View>
+                {[
+                    { code: 'BCS501', name: 'Database Management Systems', pct: 88, held: 25, attended: 22 },
+                    { code: 'BCS502', name: 'Design & Analysis of Algorithms', pct: 80, held: 25, attended: 20 },
+                    { code: 'BCS503', name: 'Operating Systems', pct: 84, held: 25, attended: 21 },
+                    { code: 'BCS504', name: 'Data Science & Analytics Lab', pct: 92, held: 24, attended: 22 }
+                ].map((sub) => (
+                    <View key={sub.code} style={styles.subjectRow}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={styles.subjectName}>{sub.name}</Text>
+                            <Text style={styles.subjectCode}>{sub.code} • {sub.attended}/{sub.held} Lectures</Text>
+                        </View>
+                        <View style={[styles.subjectPctBadge, { backgroundColor: sub.pct >= 75 ? '#DCFCE7' : '#FEE2E2' }]}>
+                            <Text style={[styles.subjectPctText, { color: sub.pct >= 75 ? '#15803D' : '#DC2626' }]}>
+                                {sub.pct}%
+                            </Text>
+                        </View>
+                    </View>
+                ))}
+            </View>
+
             {/* Fee Clearance Card */}
             <View style={styles.feeCard}>
                 <View style={styles.feeHeader}>
@@ -110,6 +138,34 @@ export default function ParentPortalScreen({
                     </View>
                 </View>
                 <Text style={styles.feeAmountText}>{ward.feeAmount} • Receipt #VGI-FEE-2026-9041</Text>
+            </View>
+
+            {/* Ward Hostel Outpass Card */}
+            <View style={styles.outpassCard}>
+                <View style={styles.outpassHeader}>
+                    <View style={styles.outpassIconCircle}>
+                        <Ionicons name="exit" size={20} color="#2563EB" />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        <Text style={styles.outpassTitle}>Ward Hostel Outpass</Text>
+                        <Text style={styles.outpassSubtitle}>Digital Gatepass & Weekend Leave Management</Text>
+                    </View>
+                    <View style={styles.activePassPill}>
+                        <Text style={styles.activePassText}>1 ACTIVE</Text>
+                    </View>
+                </View>
+                <Text style={styles.outpassDesc}>
+                    Latest: Weekend Home Visit (27-29 Sep) • Approved by Chief Warden.
+                </Text>
+                <TouchableOpacity
+                    style={styles.viewOutpassBtn}
+                    activeOpacity={0.88}
+                    onPress={() => onSelectTab && onSelectTab('outpass')}
+                >
+                    <Ionicons name="qr-code-outline" size={16} color="#FFFFFF" />
+                    <Text style={styles.viewOutpassBtnText}>VIEW / APPLY WARD OUTPASS</Text>
+                    <Ionicons name="arrow-forward" size={14} color="#FFFFFF" style={{ marginLeft: 4 }} />
+                </TouchableOpacity>
             </View>
 
             {/* Mentor Connect Card */}
@@ -323,6 +379,119 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     callMentorBtnText: {
+        color: '#FFFFFF',
+        fontSize: 12,
+        fontWeight: '800',
+        letterSpacing: 0.5
+    },
+    subjectsCard: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: '#E2E8F0',
+        marginBottom: 14
+    },
+    subjectsHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 12,
+        paddingBottom: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: '#F1F5F9'
+    },
+    subjectsTitle: {
+        fontSize: 14,
+        fontWeight: '800',
+        color: '#1E293B'
+    },
+    subjectRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 9,
+        borderBottomWidth: 1,
+        borderBottomColor: '#F8FAFC'
+    },
+    subjectName: {
+        fontSize: 13,
+        fontWeight: '700',
+        color: '#1E293B',
+        marginBottom: 2
+    },
+    subjectCode: {
+        fontSize: 11,
+        color: '#64748B'
+    },
+    subjectPctBadge: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 8
+    },
+    subjectPctText: {
+        fontSize: 12,
+        fontWeight: '800'
+    },
+    outpassCard: {
+        backgroundColor: '#F0F9FF',
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: '#BAE6FD',
+        marginBottom: 14
+    },
+    outpassHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        marginBottom: 8
+    },
+    outpassIconCircle: {
+        width: 34,
+        height: 34,
+        borderRadius: 17,
+        backgroundColor: '#E0F2FE',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    outpassTitle: {
+        fontSize: 14,
+        fontWeight: '800',
+        color: '#0369A1'
+    },
+    outpassSubtitle: {
+        fontSize: 11,
+        color: '#0284C7'
+    },
+    activePassPill: {
+        backgroundColor: '#0284C7',
+        paddingHorizontal: 8,
+        paddingVertical: 3,
+        borderRadius: 6
+    },
+    activePassText: {
+        color: '#FFFFFF',
+        fontSize: 10,
+        fontWeight: '800',
+        letterSpacing: 0.5
+    },
+    outpassDesc: {
+        fontSize: 12,
+        color: '#0369A1',
+        fontWeight: '600',
+        marginBottom: 12
+    },
+    viewOutpassBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        backgroundColor: '#0284C7',
+        paddingVertical: 11,
+        borderRadius: 10
+    },
+    viewOutpassBtnText: {
         color: '#FFFFFF',
         fontSize: 12,
         fontWeight: '800',

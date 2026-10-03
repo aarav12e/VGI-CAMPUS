@@ -27,7 +27,7 @@ export default function DashboardScreen({
             {/* Campus Notice Highlight Banner */}
             <View style={styles.alertBanner}>
                 <View style={styles.alertIconCircle}>
-                    <Ionicons name="notifications-outline" size={16} color="#EA580C" />
+                    <Ionicons name="notifications-outline" size={16} color="#1D4ED8" />
                 </View>
                 <View style={styles.alertTextWrap}>
                     <Text style={styles.alertTitle}>End-Sem Exam Registrations Live</Text>
@@ -35,36 +35,6 @@ export default function DashboardScreen({
                         Odd Semester 2026 examination forms portal is now open. Verify syllabus & fees.
                     </Text>
                 </View>
-            </View>
-
-            {/* Quick Student Mini Overview Card */}
-            <View style={styles.miniStatsRow}>
-                <TouchableOpacity
-                    style={styles.miniStatItem}
-                    activeOpacity={0.8}
-                    onPress={() => onTilePress('attendance')}
-                >
-                    <Text style={styles.miniStatValue}>84%</Text>
-                    <Text style={styles.miniStatLabel}>ATTENDANCE</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.miniStatItem}
-                    activeOpacity={0.8}
-                    onPress={() => onTilePress('results')}
-                >
-                    <Text style={[styles.miniStatValue, { color: '#059669' }]}>7.78</Text>
-                    <Text style={styles.miniStatLabel}>LATEST CGPA</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.miniStatItem}
-                    activeOpacity={0.8}
-                    onPress={() => onTilePress('exams')}
-                >
-                    <Text style={[styles.miniStatValue, { color: '#D97706' }]}>14</Text>
-                    <Text style={styles.miniStatLabel}>DAYS TO EXAM</Text>
-                </TouchableOpacity>
             </View>
 
             {/* 3-Column Customizable Grid matching Inspiration Image 1 */}
@@ -75,11 +45,13 @@ export default function DashboardScreen({
                 editTilesMode={editTilesMode}
                 onToggleEditTiles={onToggleEditTiles}
                 onRemoveTile={onRemoveTile}
+                accentColor="#1E3A8A"
+                pillBgColor="#EFF6FF"
             />
 
             {/* Bottom Quick Help Card */}
             <View style={styles.helpCard}>
-                <Ionicons name="chatbubbles-outline" size={24} color="#EA580C" />
+                <Ionicons name="chatbubbles-outline" size={24} color="#1E3A8A" />
                 <View style={{ flex: 1 }}>
                     <Text style={styles.helpTitle}>Need Assistance?</Text>
                     <Text style={styles.helpText}>
@@ -104,9 +76,9 @@ const styles = StyleSheet.create({
     alertBanner: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#FFF7ED',
+        backgroundColor: '#EFF6FF',
         borderWidth: 1,
-        borderColor: '#FED7AA',
+        borderColor: '#BFDBFE',
         borderRadius: 14,
         padding: 12,
         marginBottom: 12,
@@ -116,7 +88,7 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         borderRadius: 16,
-        backgroundColor: '#FFEDD5',
+        backgroundColor: '#DBEAFE',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -126,61 +98,34 @@ const styles = StyleSheet.create({
     alertTitle: {
         fontSize: 13,
         fontWeight: '800',
-        color: '#9A3412',
+        color: '#1E3A8A',
         marginBottom: 2
     },
     alertSubtitle: {
         fontSize: 11,
-        color: '#7C2D12',
+        color: '#1D4ED8',
         lineHeight: 15
-    },
-    miniStatsRow: {
-        flexDirection: 'row',
-        gap: 8,
-        marginBottom: 14
-    },
-    miniStatItem: {
-        flex: 1,
-        backgroundColor: '#F8FAFC',
-        borderRadius: 12,
-        paddingVertical: 10,
-        paddingHorizontal: 8,
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#E2E8F0'
-    },
-    miniStatValue: {
-        fontSize: 16,
-        fontWeight: '900',
-        color: '#2563EB',
-        marginBottom: 2
-    },
-    miniStatLabel: {
-        fontSize: 9,
-        fontWeight: '800',
-        color: '#64748B',
-        letterSpacing: 0.5
     },
     helpCard: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
-        backgroundColor: '#FFF7ED',
+        backgroundColor: '#F8FAFC',
         padding: 14,
         borderRadius: 14,
         marginTop: 18,
         borderWidth: 1,
-        borderColor: '#FED7AA'
+        borderColor: '#E2E8F0'
     },
     helpTitle: {
         fontSize: 13,
         fontWeight: '800',
-        color: '#9A3412',
+        color: '#1E293B',
         marginBottom: 2
     },
     helpText: {
         fontSize: 11,
-        color: '#7C2D12',
+        color: '#64748B',
         lineHeight: 15
     }
 });

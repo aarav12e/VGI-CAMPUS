@@ -5,9 +5,10 @@ const academicController = require('./academic.controller');
 
 const router = Router();
 
-// Departments
+// Departments & HODs
 router.get('/departments', authenticate, asyncHandler(academicController.getDepartments));
 router.post('/departments', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN']), asyncHandler(academicController.createDepartment));
+router.post('/assign-hod', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN']), asyncHandler(academicController.assignHod));
 router.get('/departments/:id/overview', authenticate, asyncHandler(academicController.getDepartmentOverview));
 
 // Programs
@@ -31,6 +32,6 @@ router.post('/sections', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN', 'HOD
 
 // Subjects
 router.get('/subjects', authenticate, asyncHandler(academicController.getSubjects));
-router.post('/subjects', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN']), asyncHandler(academicController.createSubject));
+router.post('/subjects', authenticate, requireRole(['ADMIN', 'SUPER_ADMIN', 'HOD']), asyncHandler(academicController.createSubject));
 
 module.exports = router;

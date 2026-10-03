@@ -135,8 +135,8 @@ async function createAttendanceSession(req, res) {
     return sendError(res, 'VALIDATION_ERROR', 'subjectId, sectionId, date, and records array are required', 400);
   }
 
-  let teacherId = req.user?.teacherId;
-  if (!teacherId && (req.user?.role === 'ADMIN' || req.user?.role === 'SUPER_ADMIN')) {
+  let teacherId = req.body.teacherId || req.user?.teacherId;
+  if (!teacherId) {
     const assignment = await prisma.teachingAssignment.findFirst({
       where: { subjectId, sectionId }
     });

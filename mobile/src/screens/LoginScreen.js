@@ -25,13 +25,29 @@ export default function LoginScreen({
     loginError
 }) {
     const [selectedRole, setSelectedRole] = useState('STUDENT');
-    const [loginEmail, setLoginEmail] = useState('');
-    const [loginPassword, setLoginPassword] = useState('');
+    const [loginEmail, setLoginEmail] = useState('24DS001');
+    const [loginPassword, setLoginPassword] = useState('student123');
     const [showPassword, setShowPassword] = useState(false);
     const [forgotPasswordVisible, setForgotPasswordVisible] = useState(false);
 
     const handleRoleTab = (role) => {
         setSelectedRole(role);
+        if (role === 'STUDENT') {
+            setLoginEmail('24DS001');
+            setLoginPassword('student123');
+        } else if (role === 'TEACHER') {
+            setLoginEmail('priya.verma@vgi.ac.in');
+            setLoginPassword('teacher123');
+        } else if (role === 'HOD') {
+            setLoginEmail('rajesh.sharma@vgi.ac.in');
+            setLoginPassword('teacher123');
+        } else if (role === 'PARENT') {
+            setLoginEmail('suresh.patel@gmail.com');
+            setLoginPassword('parent123');
+        } else if (role === 'ADMIN') {
+            setLoginEmail('admin@vgi.ac.in');
+            setLoginPassword('admin123');
+        }
     };
 
     const handleSubmit = () => {
@@ -44,7 +60,7 @@ export default function LoginScreen({
 
     return (
         <SafeAreaView style={styles.loginSafeArea}>
-            <StatusBar barStyle="dark-content" backgroundColor="#FFF7ED" />
+            <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={{ flex: 1 }}
@@ -74,7 +90,8 @@ export default function LoginScreen({
                     <View style={styles.roleTabsWrapper}>
                         {[
                             { role: 'STUDENT', label: 'Student', icon: 'person-outline' },
-                            { role: 'TEACHER', label: 'Faculty', icon: 'briefcase-outline' },
+                            { role: 'TEACHER', label: 'Faculty', icon: 'school-outline' },
+                            { role: 'HOD', label: 'HOD', icon: 'briefcase-outline' },
                             { role: 'PARENT', label: 'Parent', icon: 'people-outline' },
                             { role: 'ADMIN', label: 'Admin', icon: 'shield-checkmark-outline' }
                         ].map((item) => (
@@ -90,7 +107,7 @@ export default function LoginScreen({
                                 <Ionicons
                                     name={item.icon}
                                     size={15}
-                                    color={selectedRole === item.role ? '#EA580C' : '#64748B'}
+                                    color={selectedRole === item.role ? '#1D4ED8' : '#64748B'}
                                 />
                                 <Text
                                     style={[
@@ -105,11 +122,47 @@ export default function LoginScreen({
                     </View>
 
                     {/* Login Card */}
-                    <View style={styles.loginCard}>
-                        <Text style={styles.loginCardTitle}>Campus ERP Sign In</Text>
+                    <View style={[styles.loginCard, selectedRole === 'PARENT' && styles.loginCardParent]}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                            {selectedRole === 'PARENT' && (
+                                <Ionicons name="people" size={24} color="#2563EB" />
+                            )}
+                            <Text style={[styles.loginCardTitle, selectedRole === 'PARENT' && { color: '#1E3A8A', marginBottom: 0 }]}>
+                                {selectedRole === 'PARENT' ? 'Parent & Guardian Portal' : 'Campus ERP Sign In'}
+                            </Text>
+                        </View>
                         <Text style={styles.loginCardSubtitle}>
-                            Access your personalized {selectedRole.toLowerCase()} dashboard
+                            {selectedRole === 'PARENT'
+                                ? 'Sign in with your registered Gmail to view your child\'s attendance, marks, and mentor updates'
+                                : `Access your personalized ${selectedRole.toLowerCase()} dashboard`}
                         </Text>
+
+                        {/* Special Parent Instructions & 1-Tap Fill */}
+                        {selectedRole === 'PARENT' && (
+                            <View style={styles.parentNoticeBox}>
+                                <View style={styles.parentNoticeHeader}>
+                                    <Ionicons name="information-circle" size={17} color="#1D4ED8" />
+                                    <Text style={styles.parentNoticeTitle}>Simple Login Guide for Parents</Text>
+                                </View>
+                                <Text style={styles.parentNoticeText}>
+                                    1. Enter your <Text style={{ fontWeight: '800', color: '#1E293B' }}>Gmail ID</Text> submitted during your child's admission.
+                                </Text>
+                                <Text style={styles.parentNoticeText}>
+                                    2. Default Initial Password is <Text style={{ fontWeight: '800', color: '#1D4ED8' }}>parent123</Text> (can be changed later).
+                                </Text>
+                                <TouchableOpacity
+                                    style={styles.demoFillBtn}
+                                    activeOpacity={0.8}
+                                    onPress={() => {
+                                        setLoginEmail('suresh.patel@gmail.com');
+                                        setLoginPassword('parent123');
+                                    }}
+                                >
+                                    <Ionicons name="flash" size={13} color="#FFFFFF" />
+                                    <Text style={styles.demoFillBtnText}>Auto-Fill Demo Parent (suresh.patel@gmail.com)</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
 
                         {/* Error Alert Banner */}
                         {loginError && (
@@ -123,18 +176,25 @@ export default function LoginScreen({
                         <View style={styles.inputGroup}>
                             <Text style={styles.inputLabel}>
                                 {selectedRole === 'STUDENT' ? 'Roll No / University ID' :
-                                    selectedRole === 'TEACHER' ? 'Employee ID' :
-                                        selectedRole === 'PARENT' ? 'Registered Mobile / ID' : 'Admin Username'}
+                                    selectedRole === 'TEACHER' ? 'Faculty Email / Employee ID' :
+                                    selectedRole === 'HOD' ? 'HOD Email / Employee ID' :
+                                    selectedRole === 'PARENT' ? 'Your Registered Gmail Address' : 'Admin Username'}
                             </Text>
-                            <View style={styles.inputWrapper}>
-                                <Ionicons name="mail-outline" size={18} color="#94A3B8" style={styles.inputIcon} />
+                            <View style={[styles.inputWrapper, selectedRole === 'PARENT' && styles.inputWrapperParent]}>
+                                <Ionicons
+                                    name={selectedRole === 'PARENT' ? 'logo-google' : 'mail-outline'}
+                                    size={18}
+                                    color={selectedRole === 'PARENT' ? '#2563EB' : '#94A3B8'}
+                                    style={styles.inputIcon}
+                                />
                                 <TextInput
                                     style={styles.textInput}
                                     placeholder={
                                         selectedRole === 'STUDENT' ? 'e.g. 24DS001 or aarav.patel@vgi.ac.in' :
-                                            selectedRole === 'TEACHER' ? 'e.g. EMP001 or rajesh.sharma@vgi.ac.in' :
-                                                selectedRole === 'PARENT' ? 'e.g. PAR24001 or suresh.patel@vgi.ac.in' :
-                                                    'e.g. ADM001 or admin@vgi.ac.in'
+                                            selectedRole === 'TEACHER' ? 'e.g. priya.verma@vgi.ac.in or EMP002' :
+                                            selectedRole === 'HOD' ? 'e.g. rajesh.sharma@vgi.ac.in or EMP001' :
+                                            selectedRole === 'PARENT' ? 'e.g. yourname@gmail.com' :
+                                            'e.g. ADM001 or admin@vgi.ac.in'
                                     }
                                     placeholderTextColor="#94A3B8"
                                     value={loginEmail}
@@ -147,12 +207,14 @@ export default function LoginScreen({
 
                         {/* Password Input */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.inputLabel}>Password</Text>
-                            <View style={styles.inputWrapper}>
-                                <Ionicons name="lock-closed-outline" size={18} color="#94A3B8" style={styles.inputIcon} />
+                            <Text style={styles.inputLabel}>
+                                {selectedRole === 'PARENT' ? 'Password (Default: parent123)' : 'Password'}
+                            </Text>
+                            <View style={[styles.inputWrapper, selectedRole === 'PARENT' && styles.inputWrapperParent]}>
+                                <Ionicons name="lock-closed-outline" size={18} color={selectedRole === 'PARENT' ? '#2563EB' : '#94A3B8'} style={styles.inputIcon} />
                                 <TextInput
                                     style={styles.textInput}
-                                    placeholder="Enter your security password"
+                                    placeholder={selectedRole === 'PARENT' ? 'Enter parent123' : 'Enter your security password'}
                                     placeholderTextColor="#94A3B8"
                                     value={loginPassword}
                                     onChangeText={setLoginPassword}
@@ -168,19 +230,29 @@ export default function LoginScreen({
                         {/* Forgot Password */}
                         <View style={styles.forgotRow}>
                             <TouchableOpacity onPress={() => setForgotPasswordVisible(true)}>
-                                <Text style={styles.forgotText}>Forgot password?</Text>
+                                <Text style={[styles.forgotText, selectedRole === 'PARENT' && { color: '#2563EB' }]}>
+                                    Forgot password?
+                                </Text>
                             </TouchableOpacity>
                         </View>
 
                         {/* Login Button */}
                         <TouchableOpacity
-                            style={[styles.loginSubmitBtn, loginLoading && { opacity: 0.7 }]}
+                            style={[
+                                styles.loginSubmitBtn,
+                                selectedRole === 'PARENT' && styles.loginSubmitBtnParent,
+                                loginLoading && { opacity: 0.7 }
+                            ]}
                             activeOpacity={0.88}
                             onPress={handleSubmit}
                             disabled={loginLoading}
                         >
                             <Text style={styles.loginSubmitBtnText}>
-                                {loginLoading ? 'AUTHENTICATING...' : 'SIGN IN ➔'}
+                                {loginLoading
+                                    ? 'AUTHENTICATING...'
+                                    : selectedRole === 'PARENT'
+                                    ? 'SIGN IN — VIEW CHILD\'S PROGRESS'
+                                    : 'SIGN IN TO CAMPUS ERP'}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -232,7 +304,7 @@ export default function LoginScreen({
 const styles = StyleSheet.create({
     loginSafeArea: {
         flex: 1,
-        backgroundColor: '#FFF7ED',
+        backgroundColor: '#F8FAFC',
         paddingTop: ANDROID_STATUS_BAR
     },
     loginScrollContainer: {
@@ -260,7 +332,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1.5,
-        borderColor: '#FED7AA',
+        borderColor: '#CBD5E1',
         overflow: 'hidden'
     },
     vgiOfficialLogo: {
@@ -270,24 +342,24 @@ const styles = StyleSheet.create({
     crestVerticalLine: {
         width: 1.5,
         height: 38,
-        backgroundColor: '#FDBA74'
+        backgroundColor: '#CBD5E1'
     },
     univBrandMain: {
         fontSize: 15,
         fontWeight: '900',
-        color: '#9A3412',
+        color: '#1E293B',
         letterSpacing: 1
     },
     univBrandSub: {
         fontSize: 10,
         fontWeight: '800',
-        color: '#EA580C',
+        color: '#1E3A8A',
         letterSpacing: 0.8
     },
     univBrandCity: {
         fontSize: 8.5,
         fontWeight: '600',
-        color: '#78716C',
+        color: '#64748B',
         letterSpacing: 0.3
     },
     roleTabsWrapper: {
@@ -297,10 +369,10 @@ const styles = StyleSheet.create({
         padding: 4,
         marginBottom: 16,
         borderWidth: 1,
-        borderColor: '#FED7AA',
-        shadowColor: '#EA580C',
+        borderColor: '#E2E8F0',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
+        shadowOpacity: 0.04,
         shadowRadius: 4,
         elevation: 2
     },
@@ -314,7 +386,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     roleTabItemActive: {
-        backgroundColor: '#FFEDD5'
+        backgroundColor: '#EFF6FF'
     },
     roleTabLabel: {
         fontSize: 12,
@@ -322,7 +394,7 @@ const styles = StyleSheet.create({
         color: '#64748B'
     },
     roleTabLabelActive: {
-        color: '#EA580C',
+        color: '#1D4ED8',
         fontWeight: '800'
     },
     loginCard: {
@@ -330,10 +402,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 22,
         borderWidth: 1,
-        borderColor: '#FED7AA',
+        borderColor: '#E2E8F0',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.08,
+        shadowOpacity: 0.06,
         shadowRadius: 10,
         elevation: 4
     },
@@ -405,16 +477,16 @@ const styles = StyleSheet.create({
     forgotText: {
         fontSize: 12,
         fontWeight: '600',
-        color: '#EA580C'
+        color: '#1D4ED8'
     },
     loginSubmitBtn: {
-        backgroundColor: '#EA580C',
+        backgroundColor: '#1E3A8A',
         paddingVertical: 14,
         borderRadius: 12,
         alignItems: 'center',
-        shadowColor: '#EA580C',
+        shadowColor: '#1E3A8A',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.22,
         shadowRadius: 6,
         elevation: 3
     },
@@ -486,5 +558,59 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontWeight: '800',
         letterSpacing: 0.5
+    },
+    loginCardParent: {
+        borderColor: '#BFDBFE',
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1.5
+    },
+    parentNoticeBox: {
+        backgroundColor: '#EFF6FF',
+        borderRadius: 14,
+        padding: 12,
+        borderWidth: 1,
+        borderColor: '#BFDBFE',
+        marginBottom: 16
+    },
+    parentNoticeHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        marginBottom: 6
+    },
+    parentNoticeTitle: {
+        fontSize: 13,
+        fontWeight: '800',
+        color: '#1D4ED8'
+    },
+    parentNoticeText: {
+        fontSize: 12,
+        color: '#334155',
+        lineHeight: 18,
+        marginBottom: 4
+    },
+    demoFillBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+        backgroundColor: '#2563EB',
+        borderRadius: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        marginTop: 6
+    },
+    demoFillBtnText: {
+        color: '#FFFFFF',
+        fontSize: 11,
+        fontWeight: '800'
+    },
+    inputWrapperParent: {
+        borderColor: '#93C5FD',
+        backgroundColor: '#F8FAFC'
+    },
+    loginSubmitBtnParent: {
+        backgroundColor: '#2563EB',
+        shadowColor: '#2563EB'
     }
 });

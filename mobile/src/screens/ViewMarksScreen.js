@@ -8,6 +8,7 @@ import {
     Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import DropdownSelect from '../components/DropdownSelect';
 
 const SEMESTER_MARKS = {
     5: [
@@ -55,22 +56,19 @@ export default function ViewMarksScreen() {
                 </View>
             </View>
 
-            {/* Semester Selector Tabs */}
-            <View style={styles.semSelectorRow}>
-                <Text style={styles.semLabel}>Select Term:</Text>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.semList}>
-                    {semesters.map(sem => (
-                        <TouchableOpacity
-                            key={sem}
-                            style={[styles.semChip, selectedSem === sem && styles.semChipActive]}
-                            onPress={() => setSelectedSem(sem)}
-                        >
-                            <Text style={[styles.semChipText, selectedSem === sem && styles.semChipTextActive]}>
-                                Sem {sem}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
+            {/* Semester Selector Dropdown */}
+            <View style={{ marginBottom: 12 }}>
+                <DropdownSelect
+                    label="SELECT ACADEMIC TERM / SEMESTER"
+                    value={selectedSem}
+                    options={semesters.map(sem => ({
+                        label: `Semester ${sem} Results`,
+                        value: sem,
+                        subtitle: `${(SEMESTER_MARKS[sem] || []).length} Courses Evaluated`
+                    }))}
+                    onSelect={(val) => setSelectedSem(val)}
+                    icon="calendar-outline"
+                />
             </View>
 
             {/* Marks Breakdown Table */}

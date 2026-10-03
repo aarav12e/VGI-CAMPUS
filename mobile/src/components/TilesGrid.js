@@ -22,7 +22,15 @@ export default function TilesGrid({
 }) {
   const isEditing = editTilesMode !== undefined ? editTilesMode : editMode;
   const handleToggle = onToggleEditTiles || onToggleEditMode;
-  const handleAddPress = onAddTilesPress || onOpenAddTilesModal;
+  const handleAddPress = () => {
+    if (onAddTilesPress) {
+      onAddTilesPress();
+    } else if (onOpenAddTilesModal) {
+      onOpenAddTilesModal();
+    } else if (handleToggle) {
+      handleToggle(!isEditing);
+    }
+  };
 
   // Resolve display tiles
   let displayTiles = tiles;
@@ -38,28 +46,17 @@ export default function TilesGrid({
 
   return (
     <View style={styles.dashboardContainer}>
-      {/* "Add More Tiles" Section (Inspiration Image 1) */}
-      <View style={styles.addTilesSection}>
-        <View style={styles.addTilesTextCol}>
-          <Text style={styles.addTilesHeading}>{heading}</Text>
-          <Text style={styles.addTilesSubheading}>{subheading}</Text>
-        </View>
-        <TouchableOpacity 
-          style={styles.addTilesBlackCircle}
-          activeOpacity={0.8}
-          onPress={handleAddPress}
-        >
-          <Ionicons name={isEditing ? "checkmark" : "add"} size={20} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
-
       {/* Edit Mode Notice Banner */}
       {isEditing && (
         <View style={styles.editModeNoticeBar}>
+          <Ionicons name="construct-outline" size={13} color="#92400E" />
           <Text style={styles.editModeNoticeText}>
-            🛠️ Edit Mode Active: Tap 'X' to remove tiles or '+' above to add new ones.
+            Edit Mode: Tap tile to remove. Press 'Done' when finished.
           </Text>
-          <TouchableOpacity onPress={() => handleToggle && handleToggle(false)}>
+          <TouchableOpacity
+            style={styles.editModeDonePill}
+            onPress={() => handleToggle && handleToggle(false)}
+          >
             <Text style={styles.editModeDoneBtn}>Done</Text>
           </TouchableOpacity>
         </View>
@@ -115,13 +112,13 @@ export default function TilesGrid({
 
       {/* Customizable Footer Quick Links */}
       <View style={styles.customGridFooter}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.toggleEditModeLink}
           onPress={() => handleToggle && handleToggle(!isEditing)}
         >
-          <Ionicons name={isEditing ? "checkmark-circle-outline" : "options-outline"} size={16} color={accentColor} />
-          <Text style={[styles.toggleEditModeText, { color: accentColor }]}>
-            {isEditing ? 'Done Customizing' : 'Customize Dashboard Grids'}
+          <Ionicons name={isEditing ? "checkmark-circle-outline" : "settings-outline"} size={14} color="#64748B" />
+          <Text style={styles.toggleEditModeText}>
+            {isEditing ? 'Done Customizing' : 'Customize Layout'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -133,62 +130,34 @@ const styles = StyleSheet.create({
   dashboardContainer: {
     paddingBottom: 20
   },
-  addTilesSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    marginBottom: 6
-  },
-  addTilesTextCol: {
-    flex: 1
-  },
-  addTilesHeading: {
-    fontSize: 17,
-    fontWeight: '800',
-    color: '#1E293B'
-  },
-  addTilesSubheading: {
-    fontSize: 12,
-    color: '#64748B',
-    marginTop: 2
-  },
-  addTilesBlackCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#0F172A',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    elevation: 3
-  },
   editModeNoticeBar: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#FEF3C7',
+    gap: 6,
+    backgroundColor: '#FFFBEB',
     borderWidth: 1,
-    borderColor: '#FCD34D',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginBottom: 12
+    borderColor: '#FDE68A',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    marginBottom: 10
   },
   editModeNoticeText: {
     fontSize: 11,
-    color: '#92400E',
-    fontWeight: '700',
+    color: '#78350F',
+    fontWeight: '600',
     flex: 1
   },
+  editModeDonePill: {
+    backgroundColor: '#F59E0B',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 6
+  },
   editModeDoneBtn: {
-    fontSize: 12,
-    color: '#EA580C',
-    fontWeight: '900',
-    paddingLeft: 8
+    fontSize: 11,
+    color: '#FFFFFF',
+    fontWeight: '800'
   },
   studentTilesGrid: {
     flexDirection: 'row',
@@ -276,18 +245,23 @@ const styles = StyleSheet.create({
   customGridFooter: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 14,
-    marginBottom: 8
+    marginTop: 12,
+    marginBottom: 6
   },
   toggleEditModeLink: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingVertical: 6,
-    paddingHorizontal: 12
+    gap: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#E2E8F0'
   },
   toggleEditModeText: {
-    fontSize: 12,
-    fontWeight: '700'
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#64748B'
   }
 });

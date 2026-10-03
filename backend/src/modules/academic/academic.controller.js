@@ -6,7 +6,30 @@ const { logAuditAction } = require('../../middleware/audit');
 async function getDepartments(req, res) {
   const departments = await prisma.department.findMany({
     include: {
-      programs: true,
+      programs: {
+        include: {
+          batches: {
+            include: {
+              semesters: {
+                include: {
+                  sections: true
+                }
+              }
+            }
+          }
+        }
+      },
+      teachers: {
+        where: {
+          OR: [
+            { user: { role: 'HOD' } },
+            { designation: { contains: 'Head', mode: 'insensitive' } }
+          ]
+        },
+        include: {
+          user: true
+        }
+      },
       _count: {
         select: {
           teachers: true,
@@ -15,7 +38,150 @@ async function getDepartments(req, res) {
       }
     }
   });
-  return sendSuccess(res, departments);
+
+  const formatted = departments.map(d => {
+    const hodTeacher = d.teachers?.[0];
+    return {
+      id: d.id,
+      code: d.code,
+      name: d.name,
+      description: d.description,
+      programs: d.programs,
+      _count: d._count,
+      hod: hodTeacher ? {
+        id: hodTeacher.user.id,
+        name: hodTeacher.user.fullName,
+        email: hodTeacher.user.email,
+        phone: hodTeacher.user.phone,
+        employeeId: hodTeacher.employeeId,
+        designation: hodTeacher.designation,
+        qualification: hodTeacher.qualification
+      } : null
+    };
+  });
+
+  return sendSuccess(res, formatted);
+}
+
+async function assignHod(req, res) {
+  const {
+    departmentId,
+    departmentCode,
+    departmentCodes,
+    fullName,
+    email,
+    phone,
+    employeeId,
+    qualification,
+    academicYear,
+    academicYears
+  } = req.body;
+
+  if (!fullName || !email) {
+    return sendError(res, 'VALIDATION_ERROR', 'fullName and email are required', 400);
+  }
+
+  // Resolve departments (single or multiple)
+  let depts = [];
+  if (Array.isArray(departmentCodes) && departmentCodes.length > 0) {
+    depts = await prisma.department.findMany({
+      where: { code: { in: departmentCodes } }
+    });
+  } else if (departmentId) {
+    const single = await prisma.department.findUnique({ where: { id: departmentId } });
+    if (single) depts.push(single);
+  } else if (departmentCode) {
+    const single = await prisma.department.findUnique({ where: { code: departmentCode } });
+    if (single) depts.push(single);
+  }
+
+  if (depts.length === 0) {
+    const fallbackDept = await prisma.department.findFirst();
+    if (fallbackDept) {
+      depts.push(fallbackDept);
+    } else {
+      return sendError(res, 'NOT_FOUND', 'Department not found', 404);
+    }
+  }
+
+  const primaryDept = depts[0];
+  const deptCodesStr = depts.map(d => d.code).join(', ');
+  const deptNamesStr = depts.map(d => d.name).join(', ');
+
+  const yearsStr = Array.isArray(academicYears) && academicYears.length > 0
+    ? academicYears.join(', ')
+    : (academicYear || 'All Years');
+
+  const empIdToUse = employeeId || ('HOD-' + primaryDept.code + '-' + Math.floor(100 + Math.random() * 900));
+
+  let user = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } });
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email: email.toLowerCase().trim(),
+        passwordHash: 'teacher123',
+        fullName: fullName.trim(),
+        phone: phone || null,
+        role: 'HOD',
+        isActive: true
+      }
+    });
+  } else {
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        role: 'HOD',
+        fullName: fullName.trim(),
+        phone: phone || user.phone
+      }
+    });
+  }
+
+  const designation = `HOD (${deptCodesStr} • ${yearsStr})`;
+
+  let teacher = await prisma.teacher.findUnique({ where: { userId: user.id } });
+  if (!teacher) {
+    teacher = await prisma.teacher.create({
+      data: {
+        userId: user.id,
+        employeeId: empIdToUse,
+        departmentId: primaryDept.id,
+        designation,
+        qualification: qualification || 'Ph.D'
+      }
+    });
+  } else {
+    teacher = await prisma.teacher.update({
+      where: { id: teacher.id },
+      data: {
+        departmentId: primaryDept.id,
+        designation,
+        qualification: qualification || teacher.qualification
+      }
+    });
+  }
+
+  await logAuditAction({
+    userId: req.user?.id,
+    action: 'ASSIGN_HOD',
+    entityType: 'Department',
+    entityId: primaryDept.id,
+    details: {
+      hodName: fullName,
+      hodEmail: email,
+      departments: deptCodesStr,
+      academicYears: yearsStr
+    }
+  });
+
+  return sendSuccess(res, {
+    departments: depts,
+    primaryDepartment: primaryDept,
+    user,
+    teacher,
+    assignedDepartments: depts.map(d => d.code),
+    academicYears: yearsStr
+  }, `Successfully assigned ${fullName} as HOD for ${deptCodesStr} (${yearsStr})`);
 }
 
 async function createDepartment(req, res) {
@@ -209,13 +375,103 @@ async function getSections(req, res) {
 }
 
 async function createSection(req, res) {
-  const { name, semesterId, capacity = 60 } = req.body;
-  if (!name || !semesterId) {
-    return sendError(res, 'VALIDATION_ERROR', 'Section name and semesterId are required', 400);
+  let { name, semesterId, programId, programCode, semesterNumber, capacity = 60 } = req.body;
+  if (!name) {
+    return sendError(res, 'VALIDATION_ERROR', 'Section name is required', 400);
   }
+
+  // Auto-resolve or create semester if program details provided
+  if (!semesterId && (programId || programCode) && semesterNumber) {
+    let program = null;
+    if (programId) {
+      program = await prisma.program.findUnique({ where: { id: programId } });
+    }
+    if (!program && programCode) {
+      program = await prisma.program.findFirst({
+        where: {
+          OR: [
+            { code: { equals: programCode, mode: 'insensitive' } },
+            { name: { contains: programCode, mode: 'insensitive' } }
+          ]
+        }
+      });
+    }
+
+    if (program) {
+      let batch = await prisma.batch.findFirst({
+        where: { programId: program.id },
+        orderBy: { startYear: 'desc' }
+      });
+      if (!batch) {
+        batch = await prisma.batch.create({
+          data: {
+            name: program.durationYears === 4 ? '2024-2028' : '2024-2027',
+            programId: program.id,
+            startYear: 2024,
+            endYear: 2024 + program.durationYears
+          }
+        });
+      }
+
+      let academicYear = await prisma.academicYear.findFirst({ where: { isCurrent: true } }) ||
+                         await prisma.academicYear.findFirst();
+
+      let sem = await prisma.semester.findFirst({
+        where: {
+          batchId: batch.id,
+          number: Number(semesterNumber)
+        }
+      });
+      if (!sem) {
+        sem = await prisma.semester.create({
+          data: {
+            number: Number(semesterNumber),
+            batchId: batch.id,
+            academicYearId: academicYear.id,
+            isCurrent: true
+          }
+        });
+      }
+      semesterId = sem.id;
+    }
+  }
+
+  if (!semesterId) {
+    const fallbackSem = await prisma.semester.findFirst();
+    if (fallbackSem) {
+      semesterId = fallbackSem.id;
+    } else {
+      return sendError(res, 'VALIDATION_ERROR', 'Valid semesterId or program details are required', 400);
+    }
+  }
+
+  const trimmedName = name.trim();
+
+  // Check if section already exists in this semester
+  const existing = await prisma.section.findFirst({
+    where: {
+      name: trimmedName,
+      semesterId
+    },
+    include: {
+      semester: {
+        include: {
+          batch: {
+            include: {
+              program: true
+            }
+          }
+        }
+      }
+    }
+  });
+  if (existing) {
+    return sendSuccess(res, existing, 'Section already exists in this semester', 200);
+  }
+
   const section = await prisma.section.create({
     data: {
-      name: name.trim(),
+      name: trimmedName,
       semesterId,
       capacity: Number(capacity) || 60
     },
@@ -231,13 +487,15 @@ async function createSection(req, res) {
       }
     }
   });
+
   await logAuditAction({
     userId: req.user?.id,
     action: 'CREATE_SECTION',
     entityType: 'Section',
     entityId: section.id,
-    details: { name, semesterId, capacity }
+    details: { name: trimmedName, semesterId, capacity }
   });
+
   return sendSuccess(res, section, 'Section created successfully', 201);
 }
 
@@ -287,6 +545,7 @@ module.exports = {
   getDepartments,
   createDepartment,
   getDepartmentOverview,
+  assignHod,
   getPrograms,
   createProgram,
   getAcademicYears,

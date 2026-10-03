@@ -8,20 +8,32 @@ export default function TopHeader({
   title = 'Dashboard',
   badgeCount = 28,
   onOpenDrawer,
-  onOpenNotifications
+  onOpenNotifications,
+  canGoBack = false,
+  onGoBack
 }) {
   return (
     <View style={styles.studentTopBar}>
-      {/* Left: Hamburger */}
-      <TouchableOpacity
-        style={styles.studentHamburgerBtn}
-        activeOpacity={0.7}
-        onPress={onOpenDrawer}
-      >
-        <View style={styles.hamburgerLine1} />
-        <View style={styles.hamburgerLine2} />
-        <View style={styles.hamburgerLine3} />
-      </TouchableOpacity>
+      {/* Left: Back Arrow or Hamburger */}
+      {canGoBack ? (
+        <TouchableOpacity
+          style={styles.studentHamburgerBtn}
+          activeOpacity={0.7}
+          onPress={onGoBack}
+        >
+          <Ionicons name="arrow-back" size={24} color="#1E293B" />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.studentHamburgerBtn}
+          activeOpacity={0.7}
+          onPress={onOpenDrawer}
+        >
+          <View style={styles.hamburgerLine1} />
+          <View style={styles.hamburgerLine2} />
+          <View style={styles.hamburgerLine3} />
+        </TouchableOpacity>
+      )}
 
       {/* Center: Logo + Title — absolutely centered */}
       <View style={styles.centerTitleGroup} pointerEvents="none">
@@ -36,9 +48,11 @@ export default function TopHeader({
         onPress={onOpenNotifications}
       >
         <Ionicons name="notifications-outline" size={24} color="#1E293B" />
-        <View style={styles.studentBellBadge}>
-          <Text style={styles.studentBellBadgeText}>{badgeCount}</Text>
-        </View>
+        {Number(badgeCount) > 0 ? (
+          <View style={styles.studentBellBadge}>
+            <Text style={styles.studentBellBadgeText}>{badgeCount}</Text>
+          </View>
+        ) : null}
       </TouchableOpacity>
     </View>
   );
@@ -62,24 +76,24 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   hamburgerLine1: {
-    width: 24,
-    height: 3,
+    width: 22,
+    height: 2,
     borderRadius: 2,
-    backgroundColor: '#FA7268'
+    backgroundColor: '#334155'
   },
   hamburgerLine2: {
-    width: 18,
-    height: 3,
+    width: 16,
+    height: 2,
     borderRadius: 2,
-    backgroundColor: '#F97316',
-    marginTop: 4
+    backgroundColor: '#334155',
+    marginTop: 5
   },
   hamburgerLine3: {
-    width: 22,
-    height: 3,
+    width: 20,
+    height: 2,
     borderRadius: 2,
-    backgroundColor: '#FBB040',
-    marginTop: 4
+    backgroundColor: '#334155',
+    marginTop: 5
   },
   centerTitleGroup: {
     position: 'absolute',
@@ -111,7 +125,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 4,
     right: 0,
-    backgroundColor: '#FA7268',
+    backgroundColor: '#1E3A8A',
     borderRadius: 9,
     minWidth: 17,
     height: 17,
